@@ -14,5 +14,6 @@ public class PurchaseZone_Clerk : PurchaseZone
         completeAction?.Invoke();
         cd.enabled = false;
         DisableGameObject(3);
+        ClerkManager.instance?.Check();
     }
 }

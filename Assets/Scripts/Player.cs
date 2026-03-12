@@ -371,6 +371,7 @@ public class Player : MonoSingleton<Player>
             moneyAmount = 0;
         }
         UIManager.instance.SetGold(moneyAmount);
+        ClerkManager.instance?.AddTotalMoney(_value);
     }
 
     /// <summary>
