@@ -1,0 +1,3 @@
+# UnityPlayAdTemplate
+
+unity试玩广告开发集成的一些模板和组件，减少造轮子事件

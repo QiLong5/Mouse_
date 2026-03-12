@@ -1,0 +1,225 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6077481690498678747
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: New Material
+  m_Shader: {fileID: 4800000, guid: 62da5cf7899d5144bbe128a4fa754691, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _USE_VERTEX_COLOR
+  m_InvalidKeywords:
+  - _ALPHAPREMULTIPLY_ON
+  - _EMISSION
+  - _ENABLEOUTLINE_ON
+  - _FAKELIGHT1_ENABLED_ON
+  - _METALLICSPECGLOSSMAP
+  - _SURFACE_TYPE_TRANSPARENT
+  - _USEEMISSION_ON
+  - _USE_EMISSION_ON
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 2001
+  stringTagMap:
+    RenderType: Opaque
+  disabledShaderPasses:
+  - DepthOnly
+  - SHADOWCASTER
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 10309, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 10305, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 1
+    - _BumpScale: 1
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _Cull: 2
+    - _Cutoff: 1
+    - _DetailAlbedoMapScale: 1
+    - _DetailNormalMapScale: 1
+    - _DoubleSided: 0
+    - _DstBlend: 0
+    - _DstBlendAlpha: 10
+    - _EnableGPUInstancing: 0
+    - _EnableOutline: 0
+    - _EnvironmentReflections: 1
+    - _FakeLight1_AttenuationPower: 2
+    - _FakeLight1_Enabled: 1
+    - _FakeLight1_Intensity: 1
+    - _FakeLight1_Range: 10
+    - _FakeLight2_AttenuationPower: 2
+    - _FakeLight2_Enabled: 0
+    - _FakeLight2_Intensity: 1
+    - _FakeLight2_Range: 10
+    - _FakeLight3_AttenuationPower: 2
+    - _FakeLight3_Enabled: 0
+    - _FakeLight3_Intensity: 1
+    - _FakeLight3_Range: 10
+    - _FakeLight4_AttenuationPower: 2
+    - _FakeLight4_Enabled: 0
+    - _FakeLight4_Intensity: 1
+    - _FakeLight4_Range: 10
+    - _FakeLight5_AttenuationPower: 2
+    - _FakeLight5_Enabled: 0
+    - _FakeLight5_Intensity: 1
+    - _FakeLight5_Range: 10
+    - _FakeLight6_AttenuationPower: 2
+    - _FakeLight6_Enabled: 0
+    - _FakeLight6_Intensity: 1
+    - _FakeLight6_Range: 10
+    - _FakeLight7_AttenuationPower: 2
+    - _FakeLight7_Enabled: 0
+    - _FakeLight7_Intensity: 1
+    - _FakeLight7_Range: 10
+    - _FakeLight8_AttenuationPower: 2
+    - _FakeLight8_Enabled: 0
+    - _FakeLight8_Intensity: 1
+    - _FakeLight8_Range: 10
+    - _FakeLightCount: 1
+    - _GlossMapScale: 0
+    - _Glossiness: 0
+    - _GlossyReflections: 0
+    - _Metallic: 0
+    - _NormalScale: 0.782
+    - _OcclusionStrength: 1
+    - _OutlineMode: 1
+    - _OutlineWidth: 0.1
+    - _Parallax: 0.005
+    - _QueueOffset: 1.6
+    - _ReceiveShadows: 0
+    - _RenderMode: 0
+    - _RimIntensity: 1
+    - _RimPower: 3
+    - _ShadowSmoothness: 0.1
+    - _ShadowSteps: 2
+    - _Smoothness: 0
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
+    - _Surface: 1
+    - _UseCustomLighting: 0
+    - _UseEmission: 0
+    - _UseFakePointLight: 0
+    - _UseNormalMap: 0
+    - _UseRimLight: 0
+    - _UseStylizedLighting: 0
+    - _UseVertexColor: 1
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    m_Colors:
+    - _AmbientColor: {r: 0.3301887, g: 0.29669377, b: 0.23518157, a: 1}
+    - _BaseColor: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
+    - _Color: {r: 1, g: 0.6745098, b: 0, a: 0.6039216}
+    - _CustomAmbientColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _CustomLightColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
+    - _FakeLight1_Color: {r: 1, g: 0.9, b: 0.7, a: 1}
+    - _FakeLight1_Pos: {r: 0, g: 5, b: 0, a: 0}
+    - _FakeLight2_Color: {r: 0.7, g: 0.9, b: 1, a: 1}
+    - _FakeLight2_Pos: {r: 5, g: 5, b: 0, a: 0}
+    - _FakeLight3_Color: {r: 1, g: 0.7, b: 0.9, a: 1}
+    - _FakeLight3_Pos: {r: -5, g: 5, b: 0, a: 0}
+    - _FakeLight4_Color: {r: 0.9, g: 1, b: 0.7, a: 1}
+    - _FakeLight4_Pos: {r: 0, g: 5, b: 5, a: 0}
+    - _FakeLight5_Color: {r: 1, g: 1, b: 0.7, a: 1}
+    - _FakeLight5_Pos: {r: 0, g: 5, b: -5, a: 0}
+    - _FakeLight6_Color: {r: 0.7, g: 1, b: 1, a: 1}
+    - _FakeLight6_Pos: {r: -5, g: 5, b: 5, a: 0}
+    - _FakeLight7_Color: {r: 1, g: 0.8, b: 0.9, a: 1}
+    - _FakeLight7_Pos: {r: 5, g: 5, b: 5, a: 0}
+    - _FakeLight8_Color: {r: 0.9, g: 0.8, b: 1, a: 1}
+    - _FakeLight8_Pos: {r: 5, g: 5, b: -5, a: 0}
+    - _MainTiling: {r: 1, g: 1, b: 0, a: 0}
+    - _OutlineColor: {r: 0.120666504, g: 1, b: 0, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  m_BuildTextureStacks: []

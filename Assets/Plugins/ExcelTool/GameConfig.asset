@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b570d2551c2d9247881b64ee1f9cf54, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: 
+  _excelFilePath: "Assets/Plugins/ExcelTool/\u8001\u9F20\u69A8\u6C41.xlsx"
+  _sheetIndices: 1,2,3,4
+  "\u73A9\u5BB6\u6570\u636E":
+    playerSpeed: 6
+    playerCatchMax: 10
+    playerCatchMaxLevel2: 20
+    playerAttackRadius: 3
+    playerAttackRadiusLevel2: 5
+    playerinitRatCount: 10
+  "\u8001\u9F20\u6570\u636E":
+    enemyCount: 100
+    enemySpeed: 8
+    enemyPatrolRadiusIn: {x: 1, y: 3}
+    enemyPatrolRadiusOut: {x: 2, y: 5}
+  "\u751F\u4EA7\u4EA4\u6613\u76F8\u5173":
+    materialCount_Rat: 5
+    productCount_Juice: 2
+    materialCount_Juice: 1
+  customer:
+  - needCount: 10
+    giveGoin: 10
+  - needCount: 5
+    giveGoin: 5
+  - needCount: 5
+    giveGoin: 5
+  - needCount: 5
+    giveGoin: 5
+  - needCount: 5
+    giveGoin: 5
+  - needCount: 5
+    giveGoin: 5
+  - needCount: 5
+    giveGoin: 5
