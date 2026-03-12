@@ -40,7 +40,13 @@ public class TouchArea : MonoBehaviour,IBeginDragHandler, IEndDragHandler, IDrag
 
     private void Update()
     {
-
+        if (LunaManager.instance.isGameOver)
+        {
+            mJoystickBG.gameObject.SetActive(false);
+            mCanvasGp.alpha = 0;
+            return;
+        }
+        
         if (Input.GetMouseButtonDown(0))
         {
             this.transform.position = Input.mousePosition;

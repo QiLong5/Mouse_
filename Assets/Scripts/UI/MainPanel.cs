@@ -17,7 +17,7 @@ public class MainPanel : MonoBehaviour
     bool isPress = false;
     private void Start()
     {
-        
+        mCurrentTime=mTime;
     }
     void Update()
     {
