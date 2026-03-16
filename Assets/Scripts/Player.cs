@@ -310,7 +310,8 @@ public class Player : MonoSingleton<Player>
         {
             IsMove = true;
             float targetAngle = Mathf.Atan2(mJoystick.Horizontal, mJoystick.Vertical) * Mathf.Rad2Deg;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle - mAngleDis, ref mTurnSmoothVelocity, mTurnSmoothTime);
+            float worldTargetAngle = targetAngle + Camera.main.transform.eulerAngles.y - mAngleDis;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, worldTargetAngle , ref mTurnSmoothVelocity, mTurnSmoothTime);
             mRigidbody.velocity = new Vector3((transform.forward * speed).x, mRigidbody.velocity.y, (transform.forward * speed).z);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
         }
