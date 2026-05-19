@@ -3,8 +3,6 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
-
-# Folders
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
@@ -12,9 +10,13 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
+
+# MemoryCaptures can get excessive in size.
+# They also could contain extremely sensitive data
 /[Mm]emoryCaptures/
+
+# Recordings can get excessive in size
 /[Rr]ecordings/
-/[Ll]unaTemp/
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
@@ -71,13 +73,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-# -------------------------
-# Packages (Best Practice)
-# -------------------------
-# 忽略 Packages 下的缓存，但保留依赖配置文件
-/[Pp]ackages/*
-!/[Pp]ackages/manifest.json
-!/[Pp]ackages/packages-lock.json
-# 如果你有嵌入式包源码，也要保留
-!/[Pp]ackages/*/
+# Luna build temp files
+/LunaTemp/
 

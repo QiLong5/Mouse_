@@ -19,6 +19,17 @@ public class GroundItemStack : ItemStack
     {
         _item.transform.parent = transform;
         _item.gameObject.SetActive(true);
+
+        if (stackAmount >= maxStackAmount)
+        {
+            // 仅做飞行效果，飞行结束后直接回收，不实际入堆
+            _item.MoveAlongCurve(_item.transform.localPosition, nextStackPosition, () =>
+            {
+                PoolManager.instance.ReturnItem(_item);
+            });
+            return;
+        }
+
         if (stackAmount >= maxHeight)
         {
             _item.MoveAlongCurve(_item.transform.localPosition, nextStackPosition,()=> { _item.gameObject.SetActive(false);});
@@ -27,7 +38,7 @@ public class GroundItemStack : ItemStack
         {
             _item.MoveAlongCurve(_item.transform.localPosition, nextStackPosition);
         }
-    
+
         stackAmount++;
         if (stackAmount >= maxHeight)
         {
@@ -37,7 +48,7 @@ public class GroundItemStack : ItemStack
         {
             nextStackPosition = new Vector3(0, _item.stackHeight * stackAmount, 0);
         }
-      
+
         stackedItemList.Add(_item);
     }
 

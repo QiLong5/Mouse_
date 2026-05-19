@@ -54,6 +54,17 @@ public class GroundItemStackManager : MonoBehaviour
     /// <param name="_item"></param>
     public virtual void StackItem(Item _item)
     {
+        if (totalMaxAmount!=0 && totalStackedItemsAmount >= totalMaxAmount)
+        {
+            // 仅做飞行效果，飞行结束后直接回收，不实际入堆
+            _item.transform.parent = stackList[targetStackListIndex].transform;
+            _item.gameObject.SetActive(true);
+            _item.MoveAlongCurve(_item.transform.localPosition, stackList[targetStackListIndex].nextStackPosition, () =>
+            {
+                PoolManager.instance.ReturnItem(_item);
+            });
+            return;
+        }
         stackList[targetStackListIndex].StackItem(_item);
         ModifyTargetStackListIndex(1);
         totalStackedItemsAmount++;
