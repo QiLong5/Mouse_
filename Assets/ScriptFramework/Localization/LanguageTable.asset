@@ -1,0 +1,233 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f5190fe4a5d6944188287cc382cae25, type: 3}
+  m_Name: LanguageTable
+  m_EditorClassIdentifier: 
+  rows:
+  - name: "\u7ACB\u5373\u4E0B\u8F7D"
+    type: 0
+    entries:
+    - language: 0
+      text: "\u7ACB\u5373\u4E0B\u8F7D"
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 1
+      text: "\u7ACB\u5373\u4E0B\u8F09"
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 2
+      text: Download Now
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 3
+      text: "\u4ECA\u3059\u3050 \u30D7\u30EC\u30A4"
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 4
+      text: "\uC9C0\uAE08 \uB2E4\uC6B4\uB85C\uB4DC"
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 5
+      text: "T\xE9l\xE9charger maintenant"
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 6
+      text: "\u0421\u041A\u0410\u0427\u0410\u0422\u042C \u0421\u0415\u0419\u0427\u0410\u0421"
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 7
+      text: Download Now
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 8
+      text: "\u0E40\u0E23\u0E35\u0E22\u0E19\u0E23\u0E39\u0E49\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21"
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 9
+      text: Erfahren Sie mehr
+      sprite: {fileID: 0}
+      animationName: 
+  - name: "\u4E86\u89E3\u66F4\u591A"
+    type: 0
+    entries:
+    - language: 0
+      text: "\u4E86\u89E3\u66F4\u591A"
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 1
+      text: "\u4E86\u89E3\u66F4\u591A"
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 2
+      text: Learn More
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 3
+      text: "\u8A73\u7D30\u306F\u3053\u3061\u3089"
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 4
+      text: "\uB354 \uC54C\uC544\uBCF4\uAE30"
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 5
+      text: ' En savoir plus'
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 6
+      text: "\u0423\u0447\u0438\u0442\u044C \u0431\u043E\u043B\u044C\u0448\u0435"
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 7
+      text: Learn More
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 8
+      text: "\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21"
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 9
+      text: Mehr erfahren
+      sprite: {fileID: 0}
+      animationName: 
+  - name: "\u62D6\u62FD\u5373\u53EF\u79FB\u52A8"
+    type: 0
+    entries:
+    - language: 0
+      text: "\u62D6\u62FD\u5373\u53EF\u79FB\u52A8"
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 1
+      text: "\u62D6\u62FD\u5373\u53EF\u79FB\u52A8"
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 2
+      text: DRAG TO MOVE
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 3
+      text: "\u30C9\u30E9\u30C3\u30B0\u3067\u79FB\u52D5"
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 4
+      text: "\uB4DC\uB798\uADF8\uD558\uC5EC \uC774\uB3D9"
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 5
+      text: "Glisser pour d\xE9placer"
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 6
+      text: "\u041F\u0435\u0440\u0435\u0442\u0430\u0449\u0438\u0442\u0435 \u0434\u043B\u044F
+        \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u044F"
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 7
+      text: DRAG TO MOVE
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 8
+      text: "\u0E25\u0E32\u0E01\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E22\u0E49\u0E32\u0E22"
+      sprite: {fileID: 0}
+      animationName: 
+    - language: 9
+      text: Ziehen zum Verschieben
+      sprite: {fileID: 0}
+      animationName: 
+  - name: Spine
+    type: 2
+    entries:
+    - language: 0
+      text: "\u62D6\u62FD\u5373\u53EF\u79FB\u52A8"
+      sprite: {fileID: 0}
+      animationName: yw
+    - language: 1
+      text: "\u62D6\u62FD\u5373\u53EF\u79FB\u52A8"
+      sprite: {fileID: 0}
+      animationName: yw
+    - language: 2
+      text: DRAG TO MOVE
+      sprite: {fileID: 0}
+      animationName: yw
+    - language: 3
+      text: "\u30C9\u30E9\u30C3\u30B0\u3067\u79FB\u52D5"
+      sprite: {fileID: 0}
+      animationName: rw
+    - language: 4
+      text: "\uB4DC\uB798\uADF8\uD558\uC5EC \uC774\uB3D9"
+      sprite: {fileID: 0}
+      animationName: hw
+    - language: 5
+      text: "Glisser pour d\xE9placer"
+      sprite: {fileID: 0}
+      animationName: yw
+    - language: 6
+      text: "\u041F\u0435\u0440\u0435\u0442\u0430\u0449\u0438\u0442\u0435 \u0434\u043B\u044F
+        \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u044F"
+      sprite: {fileID: 0}
+      animationName: ew
+    - language: 7
+      text: DRAG TO MOVE
+      sprite: {fileID: 0}
+      animationName: yw
+    - language: 8
+      text: "\u0E25\u0E32\u0E01\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E22\u0E49\u0E32\u0E22"
+      sprite: {fileID: 0}
+      animationName: yw
+    - language: 9
+      text: Ziehen zum Verschieben
+      sprite: {fileID: 0}
+      animationName: yw
+  - name: logo
+    type: 1
+    entries:
+    - language: 0
+      text: "\u62D6\u62FD\u5373\u53EF\u79FB\u52A8"
+      sprite: {fileID: 21300000, guid: 53e43b8ef473b34488d4d74cd1fd9882, type: 3}
+      animationName: yw
+    - language: 1
+      text: "\u62D6\u62FD\u5373\u53EF\u79FB\u52A8"
+      sprite: {fileID: 21300000, guid: 53e43b8ef473b34488d4d74cd1fd9882, type: 3}
+      animationName: yw
+    - language: 2
+      text: DRAG TO MOVE
+      sprite: {fileID: 21300000, guid: 53e43b8ef473b34488d4d74cd1fd9882, type: 3}
+      animationName: yw
+    - language: 3
+      text: "\u30C9\u30E9\u30C3\u30B0\u3067\u79FB\u52D5"
+      sprite: {fileID: 21300000, guid: 53e43b8ef473b34488d4d74cd1fd9882, type: 3}
+      animationName: rw
+    - language: 4
+      text: "\uB4DC\uB798\uADF8\uD558\uC5EC \uC774\uB3D9"
+      sprite: {fileID: 21300000, guid: 53e43b8ef473b34488d4d74cd1fd9882, type: 3}
+      animationName: hw
+    - language: 5
+      text: "Glisser pour d\xE9placer"
+      sprite: {fileID: 21300000, guid: 53e43b8ef473b34488d4d74cd1fd9882, type: 3}
+      animationName: yw
+    - language: 6
+      text: "\u041F\u0435\u0440\u0435\u0442\u0430\u0449\u0438\u0442\u0435 \u0434\u043B\u044F
+        \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u044F"
+      sprite: {fileID: 21300000, guid: 53e43b8ef473b34488d4d74cd1fd9882, type: 3}
+      animationName: ew
+    - language: 7
+      text: DRAG TO MOVE
+      sprite: {fileID: 21300000, guid: 53e43b8ef473b34488d4d74cd1fd9882, type: 3}
+      animationName: yw
+    - language: 8
+      text: "\u0E25\u0E32\u0E01\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E22\u0E49\u0E32\u0E22"
+      sprite: {fileID: 21300000, guid: 53e43b8ef473b34488d4d74cd1fd9882, type: 3}
+      animationName: yw
+    - language: 9
+      text: Ziehen zum Verschieben
+      sprite: {fileID: 21300000, guid: 53e43b8ef473b34488d4d74cd1fd9882, type: 3}
+      animationName: yw

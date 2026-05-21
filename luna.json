@@ -1,7 +1,7 @@
 {
     "version": "7.1.0",
     "projectId": "557b5b614ba9021468899f7566834b85",
-    "applicationID": 37274,
+    "applicationID": 37812,
     "creativeName": "",
     "pgServer": "EU",
     "window": {
@@ -128,7 +128,8 @@
                 "Stubs/MoreMountains.NiceVibrations"
             ],
             "includes": [
-                "Assets/Resources/DOTweenSettings.asset"
+                "Assets/Resources/DOTweenSettings.asset",
+                "Assets/TextMesh Pro/Resources/TMP Settings.asset"
             ]
         },
         "scenes": [

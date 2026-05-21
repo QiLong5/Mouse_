@@ -30,6 +30,7 @@ public class CameraManager : MonoSingleton<CameraManager>
 
     float mCurrentCameraNum;
     bool iszoom;
+    bool mIsOrthographic;
 
 
     Vector3 mOffset;
@@ -55,37 +56,44 @@ public class CameraManager : MonoSingleton<CameraManager>
     public bool isCress;
     void Start()
     {
-        if (Screen.width > Screen.height)
+        mIsOrthographic = mCamera.orthographic;
+        if (mIsOrthographic)
         {
-            mCurrentCameraNum = mCameraCressNumFar;
-            isCress = true;
-        }
-        else
-        {
-            mCurrentCameraNum = mCameraVerNumFar;
-            isCress = false;
+            if (Screen.width > Screen.height)
+            {
+                mCurrentCameraNum = mCameraCressNumFar;
+                isCress = true;
+            }
+            else
+            {
+                mCurrentCameraNum = mCameraVerNumFar;
+                isCress = false;
+            }
+            CamerZoom(false, 1);
         }
         mOffset =  transform.position- Player.instance.transform.position ;
-        CamerZoom(false, 1);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!iszoom)
+        if (mIsOrthographic)
         {
-            if (Screen.width > Screen.height)
+            if (!iszoom)
             {
-                mCurrentCameraNum = mCameraCressNum;
-                isCress = true;
+                if (Screen.width > Screen.height)
+                {
+                    mCurrentCameraNum = mCameraCressNum;
+                    isCress = true;
+                }
+                else
+                {
+                    mCurrentCameraNum = mCameraVerNum;
+                    isCress = false;
+                }
             }
-            else
-            {
-                mCurrentCameraNum = mCameraVerNum;
-                isCress = false;
-            }
+            mCamera.orthographicSize = mCurrentCameraNum;
         }
-        mCamera.orthographicSize = mCurrentCameraNum;
 
         if (Input.GetKeyDown(KeyCode.L))
         {

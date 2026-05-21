@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class UIManager :MonoSingleton<UIManager>
 {
@@ -14,9 +15,6 @@ public class UIManager :MonoSingleton<UIManager>
 
     public List<Image> gold;
 
-
-    public RectTransform mGoinUI;
-
     public RectTransform mCanvas;
 
     public Image mDangerImage;
@@ -24,9 +22,32 @@ public class UIManager :MonoSingleton<UIManager>
     public bool mIsDanger;
 
     public Transform mEnemyHps;
-    void Start()
+    public TextMeshProUGUI mCoinUI;
+    public TextMeshProUGUI mInjectionUI;
+    public TextMeshProUGUI mInjectionMaxUI;
+    public RectTransform mInjectionChangeUI;//-1
+    public Button logoBtn;
+    public float injectionPopUpDistance = 50f;//弹出距离
+    private int maxPatient;
+    private int currentPatient;
+    private int coinNum;//当前金币数量
+    [Header("引导手指")]
+    public Transform tipfinger;
+    public Image tipbutton;
+    private CanvasGroup tipfingerCanvasGroup;
+    private Coroutine tipfingerCoroutine;
+    private Vector3 tipfingerOriginalScale;
+    private void Start()
     {
-       // SetGold(0);
+        SetCoin(0, false);
+        TipClickInit();
+        //StartTipFinger();
+
+        logoBtn.transform.DOPunchScale(-Vector3.one*0.1f, 1.5f,1).SetLoops(-1);
+        //currentPatient = maxPatient = GameDataEditor.instance.GetOtherData.maxInjection;
+        currentPatient = maxPatient = 20;
+        mInjectionMaxUI.text =  "/" + maxPatient;
+        mInjectionUI.text = currentPatient.ToString();
     }
 
     void Update()
@@ -58,6 +79,7 @@ public class UIManager :MonoSingleton<UIManager>
     public void SetGold(int num)
     {
      //   SetNum(gold, num);
+        SetCoin(num,true);
     }
     /// <summary>
     /// 设置图片数字
@@ -166,4 +188,180 @@ public class UIManager :MonoSingleton<UIManager>
             yield return new WaitForSeconds(0.2f);
         }
     }
+
+    private int lastNum;
+    private Tween numberTween;
+    /// <summary>
+    /// 金币数量更改
+    /// </summary>
+    /// <param name="num"></param>
+    /// <param name="isPlayAni"></param>
+    public void SetCoin(int num, bool isPlayAni)
+    {
+        if (mCoinUI == null) return;
+        lastNum = coinNum;
+        coinNum = num;
+        if (isPlayAni)
+        {
+            numberTween?.Kill();
+            numberTween = DOTween.To(() => lastNum, x => mCoinUI.text = x.ToString(), coinNum, 0.5f).SetEase(Ease.OutQuad);
+        }
+        else
+        {
+            mCoinUI.text = coinNum.ToString();
+        }
+    }
+
+    public void SetInjection(int changeNum)
+    {
+        if (changeNum == 0) return;
+        currentPatient += changeNum;
+        if (currentPatient <= 0)
+        {
+            currentPatient = 0;
+            return;
+        }
+
+        // 弹出变化量文本
+        NumChange(mInjectionChangeUI, changeNum);
+
+        // 更新主文本
+        mInjectionUI.text = currentPatient.ToString();
+        mInjectionUI.color = Color.green;
+        mInjectionUI.transform.DOPunchScale(Vector3.one * 0.1f, 0.3f).OnComplete(() => mInjectionUI.color = Color.white);
+    }
+    public void NumChange(RectTransform change, int changeNum)
+    {
+        // 弹出变化量文本
+        change.gameObject.SetActive(true);
+        change.GetChild(0).GetComponent<TextMeshProUGUI>().text = changeNum.ToString();
+        var rt = change;
+        var startPos = rt.anchoredPosition;
+        rt.anchoredPosition = startPos;
+        DOTween.Kill(rt);
+        rt.DOAnchorPosY(startPos.y + injectionPopUpDistance, 0.5f).SetEase(Ease.OutQuad).OnComplete(() =>
+        {
+            change.gameObject.SetActive(false);
+            rt.anchoredPosition = startPos;
+        });
+    }
+    
+    #region 引导手指
+    // 初始化引导手指组件，Start 自动调用，外部也可手动调用
+    public void TipClickInit()
+    {
+        if (tipfinger != null)
+        {
+            tipfingerCanvasGroup = tipfinger.GetComponent<CanvasGroup>();
+            if (tipfingerCanvasGroup == null)
+                tipfingerCanvasGroup = tipfinger.gameObject.AddComponent<CanvasGroup>();
+            tipfingerOriginalScale = tipfinger.localScale;
+            tipfinger.gameObject.SetActive(false);
+        }
+    }
+
+    // 启动引导手指循环（30秒后首次显示，每隔10秒循环）
+    public void StartTipFinger()
+    {
+        if (tipfinger != null && tipfingerCoroutine == null)
+            tipfingerCoroutine = StartCoroutine(TipFingerLoop());
+    }
+
+    // 停止引导手指循环并隐藏手指
+    public void StopTipFinger()
+    {
+        if (tipfingerCoroutine != null)
+        {
+            StopCoroutine(tipfingerCoroutine);
+            tipfingerCoroutine = null;
+        }
+        if (tipfinger != null)
+        {
+            tipfinger.DOKill();
+            tipfinger.gameObject.SetActive(false);
+        }
+    }
+    private IEnumerator TipFingerLoop()
+    {
+        //yield return new WaitForSeconds(30f);
+        while (!LunaManager.instance.isGameOver)
+        {
+            ShowTipFinger();
+            yield return new WaitForSeconds(5f);
+            HideTipFinger();
+            yield return new WaitForSeconds(10f);
+        }
+    }
+
+    private void ShowTipFinger()
+    {
+        if (tipfinger == null) return;
+
+        tipfinger.gameObject.SetActive(true);
+        tipfinger.DOKill();
+        tipfinger.localRotation = Quaternion.identity;
+        tipfingerCanvasGroup.alpha = 1;
+        tipfinger.localScale = tipfingerOriginalScale * 0.5f;
+        tipfinger.DOScale(tipfingerOriginalScale, 0.5f).SetEase(Ease.OutBack);
+        StartTipFingerShake();
+    }
+
+    private void HideTipFinger()
+    {
+        if (tipfinger == null) return;
+
+        tipfinger.DOKill();
+        tipfingerCanvasGroup.DOFade(0, 0.5f).OnComplete(() => tipfinger.gameObject.SetActive(false));
+    }
+
+    private void StartTipFingerShake()
+    {
+        if (tipfinger == null) return;
+
+        Sequence s = DOTween.Sequence();
+        Color originalButtonColor = tipbutton != null ? tipbutton.color : Color.white;
+
+        for (int i = 0; i < 3; i++)
+        {
+            s.Append(tipfinger.DORotate(new Vector3(0, 0, -15f), 0.125f));
+            s.Join(tipfinger.DOScale(tipfingerOriginalScale, 0.125f));
+            if (tipbutton != null) s.Join(tipbutton.DOColor(originalButtonColor, 0.125f));
+
+            if (tipbutton != null)
+            {
+                s.Append(tipbutton.DOColor(originalButtonColor * 0.7f, 0.06f));
+                s.Join(tipfinger.DORotate(new Vector3(0, 0, 15f), 0.25f));
+                s.Join(tipfinger.DOScale(tipfingerOriginalScale * 1.1f, 0.25f));
+            }
+            else
+            {
+                s.Append(tipfinger.DORotate(new Vector3(0, 0, 15f), 0.25f));
+                s.Join(tipfinger.DOScale(tipfingerOriginalScale * 1.1f, 0.25f));
+            }
+
+            s.Append(tipfinger.DORotate(new Vector3(0, 0, -15f), 0.25f));
+            s.Join(tipfinger.DOScale(tipfingerOriginalScale, 0.25f));
+            if (tipbutton != null) s.Join(tipbutton.DOColor(originalButtonColor, 0.25f));
+
+            if (tipbutton != null)
+            {
+                s.Append(tipbutton.DOColor(originalButtonColor * 0.7f, 0.06f));
+                s.Join(tipfinger.DORotate(new Vector3(0, 0, 15f), 0.25f));
+                s.Join(tipfinger.DOScale(tipfingerOriginalScale * 1.1f, 0.25f));
+            }
+            else
+            {
+                s.Append(tipfinger.DORotate(new Vector3(0, 0, 15f), 0.25f));
+                s.Join(tipfinger.DOScale(tipfingerOriginalScale * 1.1f, 0.25f));
+            }
+
+            s.Append(tipfinger.DORotate(Vector3.zero, 0.125f));
+            s.Join(tipfinger.DOScale(tipfingerOriginalScale, 0.125f));
+            if (tipbutton != null) s.Join(tipbutton.DOColor(originalButtonColor, 0.125f));
+
+            if (i < 2) s.AppendInterval(1f);
+        }
+    }
+
+    #endregion
 }

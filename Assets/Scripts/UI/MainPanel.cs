@@ -21,6 +21,11 @@ public class MainPanel : MonoBehaviour
     }
     void Update()
     {
+        if (LunaManager.instance.isGameOver)
+        {
+            Tip.alpha = 0f;
+            return;
+        }
         if (!isPress)
         {
             mCurrentTime += Time.deltaTime;
