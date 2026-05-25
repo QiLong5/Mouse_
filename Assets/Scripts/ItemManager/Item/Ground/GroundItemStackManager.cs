@@ -57,6 +57,7 @@ public class GroundItemStackManager : MonoBehaviour
         if (totalMaxAmount!=0 && totalStackedItemsAmount >= totalMaxAmount)
         {
             // 仅做飞行效果，飞行结束后直接回收，不实际入堆
+            _item.cd.enabled = false;
             _item.transform.parent = stackList[targetStackListIndex].transform;
             _item.gameObject.SetActive(true);
             _item.MoveAlongCurve(_item.transform.localPosition, stackList[targetStackListIndex].nextStackPosition, () =>

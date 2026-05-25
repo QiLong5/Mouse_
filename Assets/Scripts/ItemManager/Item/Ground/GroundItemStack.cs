@@ -17,6 +17,7 @@ public class GroundItemStack : ItemStack
     //堆叠物品
     public override void StackItem(Item _item)
     {
+        _item.cd.enabled = false;
         _item.transform.parent = transform;
         _item.gameObject.SetActive(true);
 
