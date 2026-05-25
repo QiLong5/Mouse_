@@ -45,6 +45,7 @@ public class PurchaseZone : MonoBehaviour
     bool isbreath;
     bool isfinshPurchase=true;
     Vector3 mlocalescale;
+    Quaternion oriQua;
     protected virtual void Start()
     {
         remainingPrice = price;
@@ -61,6 +62,7 @@ public class PurchaseZone : MonoBehaviour
 
         UIManager.instance.SetNum(remainingPrice_Img, remainingPrice);
         mlocalescale = canvas.transform.localScale;
+        oriQua = canvas.transform.localRotation;
         StartBreath();
     }
 
@@ -82,7 +84,7 @@ public class PurchaseZone : MonoBehaviour
     protected virtual void OnTriggerEnter(Collider other)
     {
       //  Debug.Log("Targte: " + other.name);
-        if (other.tag.Equals("Player") && !hasCompletedPurchase)
+        if (other.CompareTag("Player") && !hasCompletedPurchase)
         {
             isPurchasing = true;
             ShowBlueSprite();
@@ -93,7 +95,7 @@ public class PurchaseZone : MonoBehaviour
 
     protected virtual void OnTriggerExit(Collider other)
     {
-        if (other.tag.Equals("Player"))
+        if (other.CompareTag("Player"))
         {
             isPurchasing = false;
             itemDropOffTimer = -1;
@@ -229,7 +231,7 @@ public class PurchaseZone : MonoBehaviour
         if (cachedTargetStack != null && cachedTargetStack.stackAmount <= 0)
         {
             canvas.transform.DOKill();
-            canvas.transform.localRotation = Quaternion.identity;
+            canvas.transform.localRotation = oriQua;
             if (isPurchasing)
             {
                 borderNomoney.gameObject.SetActive(true);
