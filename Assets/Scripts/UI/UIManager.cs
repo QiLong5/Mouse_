@@ -40,8 +40,8 @@ public class UIManager :MonoSingleton<UIManager>
     private void Start()
     {
         SetCoin(0, false);
-        TipClickInit();
-        //StartTipFinger();
+        if(LunaManager.instance.jumpMode== JumpMode.GuideFinger)
+            StartTipFinger();
 
         logoBtn.transform.DOPunchScale(-Vector3.one*0.1f, 1.5f,1).SetLoops(-1);
         //currentPatient = maxPatient = GameDataEditor.instance.GetOtherData.maxInjection;
@@ -263,6 +263,7 @@ public class UIManager :MonoSingleton<UIManager>
     // 启动引导手指循环（30秒后首次显示，每隔10秒循环）
     public void StartTipFinger()
     {
+        TipClickInit();
         if (tipfinger != null && tipfingerCoroutine == null)
             tipfingerCoroutine = StartCoroutine(TipFingerLoop());
     }

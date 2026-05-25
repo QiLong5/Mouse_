@@ -161,9 +161,7 @@ public class LunaManager : MonoBehaviour
 
         // 追踪AppLovin/Axon Analytics进度节点
         TrackProgressMilestones(progress);
-        if (jumpMode == JumpMode.GuideFinger && progress == 50)
-            UIManager.instance.StartTipFinger();
-        else if (jumpMode == JumpMode.ProgressForceJump && progress == 75)
+        if (jumpMode == JumpMode.ProgressForceJump && progress == 75)
             GotoStore();
     }
 
