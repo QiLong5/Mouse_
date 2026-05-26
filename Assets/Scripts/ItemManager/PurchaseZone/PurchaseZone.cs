@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.Events;
+using TMPro;
 
 public class PurchaseZone : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PurchaseZone : MonoBehaviour
     public int price; //总共需要的价格
     public int remainingPrice { get; protected set; } //剩余还需要付的钱
     public ItemType requiredItemType;  //需要的物品类型
+    public TextMeshProUGUI remainTxt;//剩余价格文本
     protected float itemDropOffCooldown;  //往购买区域丢物品的CD
     protected float itemDropOffTimer;  //与上面的cooldown联动的计时器
 
@@ -49,6 +51,7 @@ public class PurchaseZone : MonoBehaviour
     protected virtual void Start()
     {
         remainingPrice = price;
+        remainTxt.text = remainingPrice.ToString();
 
         itemDropOffCooldown = Player.instance.itemDropOffCooldown;
         itemDropOffTimer = -1;
@@ -78,6 +81,7 @@ public class PurchaseZone : MonoBehaviour
     {
         this.price=price;
         remainingPrice = price;
+        remainTxt.text = remainingPrice.ToString();
     }
 
 
@@ -186,6 +190,7 @@ public class PurchaseZone : MonoBehaviour
         int paidAmount = price - remainingPrice;
         purchaseProgress = (float)paidAmount / (float)price;
         fillImage.fillAmount = purchaseProgress;
+        remainTxt.text = remainingPrice.ToString();
         UIManager.instance.SetNum(remainingPrice_Img, remainingPrice);
         OnPurchaseProgress();
 
