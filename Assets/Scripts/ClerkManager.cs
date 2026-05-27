@@ -77,6 +77,7 @@ public class ClerkManager : MonoSingleton<ClerkManager>
                     displayIds.Add(info.id);
                     var clerk = clerks.Find(t => t.id == info.id);
                     clerk.gameObject.SetActive(true);
+                    AudioManager.instance.Play(SK.图标出现);
 
                     //引导检测
                     //GuildManager.instance.CheckGuild(GuildTriggerType.UnlockIcon,0,clerk.name);

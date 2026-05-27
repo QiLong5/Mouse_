@@ -15,5 +15,6 @@ public class PurchaseZone_Clerk : PurchaseZone
         cd.enabled = false;
         DisableGameObject(3);
         ClerkManager.instance?.Check();
+        AudioManager.instance.Play(SK.解锁_建筑);
     }
 }

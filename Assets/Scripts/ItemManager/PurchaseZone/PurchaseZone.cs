@@ -240,6 +240,7 @@ public class PurchaseZone : MonoBehaviour
             if (isPurchasing)
             {
                 borderNomoney.gameObject.SetActive(true);
+                AudioManager.instance.Play(SK.警告_缺金币);
             }
             canvas.transform.DOShakeRotation(0.5f, new Vector3(0, 0, 10));
             canvas.transform.DOScale(mlocalescale * 1.1f, 0.2f);

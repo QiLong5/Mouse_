@@ -66,10 +66,16 @@ public class GroundItemStackManager : MonoBehaviour
             });
             return;
         }
-        stackList[targetStackListIndex].StackItem(_item);
-        ModifyTargetStackListIndex(1);
-        totalStackedItemsAmount++;
-        stackItemAcion?.Invoke();
+        if (stackList[targetStackListIndex].StackItem(_item))
+        {
+            ModifyTargetStackListIndex(1);
+            totalStackedItemsAmount++;
+            stackItemAcion?.Invoke();
+        }
+        if (_item.itemType == ItemType.Money)
+            AudioManager.instance.Play(SK.投金币);
+        else
+            AudioManager.instance.Play(SK.老鼠叠高高);
     }
    
     /// <summary>

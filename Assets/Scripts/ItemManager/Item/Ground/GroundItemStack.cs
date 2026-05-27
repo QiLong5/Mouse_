@@ -15,7 +15,7 @@ public class GroundItemStack : ItemStack
     }
 
     //堆叠物品
-    public override void StackItem(Item _item)
+    public override bool StackItem(Item _item)
     {
         _item.cd.enabled = false;
         _item.transform.parent = transform;
@@ -28,7 +28,7 @@ public class GroundItemStack : ItemStack
             {
                 PoolManager.instance.ReturnItem(_item);
             });
-            return;
+            return false;
         }
 
         if (stackAmount >= maxHeight)
@@ -51,6 +51,7 @@ public class GroundItemStack : ItemStack
         }
 
         stackedItemList.Add(_item);
+        return true;
     }
 
 

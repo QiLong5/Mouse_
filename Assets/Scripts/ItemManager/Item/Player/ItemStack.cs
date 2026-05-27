@@ -39,6 +39,9 @@ public class ItemStack : MonoBehaviour
 
     private ItemStackManager stackManager;
     protected List<Item> stackedItemList;
+    [Header("角度偏移")]
+    [SerializeField] protected Vector3 angleOffset = Vector3.zero;
+
     [Header("弯曲效果设置")]
     [SerializeField] bool isOpenBend = false;
     [SerializeField] private float bendDistance = 0.1f; // 每个物品向后弯曲的距离
@@ -71,7 +74,19 @@ public class ItemStack : MonoBehaviour
                 RestoreItems();//恢复笔直
             }
         }
-       
+
+    }
+
+    private static float _lastVibrateTime = -1f;
+    private const float VibrateCooldown = 0.8f;
+
+    private static void TryVibrate()
+    {
+        if (Time.time - _lastVibrateTime >= VibrateCooldown)
+        {
+            _lastVibrateTime = Time.time;
+            VibrationManager.Vibrate();
+        }
     }
 
     //调整物品堆在玩家背后的位置
@@ -131,20 +146,23 @@ public class ItemStack : MonoBehaviour
     /// 堆叠物品
     /// </summary>
     /// <param name="_item"></param>
-    public virtual void StackItem(Item _item)
+    public virtual bool StackItem(Item _item)
     {
         if (_item.canDoFurtherMove == false)
         {
-            return;
+            return false;
            // _item.StopAllCoroutines();
         }
         if (stackAmount >= maxStackAmount)
         {
+            AudioManager.instance.Play(SK.警告_满);
             Player.instance.maxImg.gameObject.SetActive(true);
-            return;
+            return false;
         }
-       
-        _item.cd.enabled=false;
+
+        _item.cd.enabled = false;
+        // if(_item.rb!=null)
+        //     _item.rb.isKinematic = true;
         _item.transform.parent = transform;
         _item.hasBeenAddedToPlayer = true;
 
@@ -161,11 +179,11 @@ public class ItemStack : MonoBehaviour
             _item.gameObject.SetActive(true);
             if (stackAmount <= maxHeight)
             {
-                _item.MoveAlongCurve(_item.transform.localPosition, newItemBentPos);
+                _item.MoveAlongCurve(_item.transform.localPosition, newItemBentPos, () => { _item.transform.localRotation = Quaternion.Euler(angleOffset); });
             }
             else
             {
-                _item.MoveAlongCurve(_item.transform.localPosition, newItemBentPos,()=> { _item.gameObject.SetActive(false); });
+                _item.MoveAlongCurve(_item.transform.localPosition, newItemBentPos,()=> { _item.transform.localRotation = Quaternion.Euler(angleOffset); _item.gameObject.SetActive(false); });
             }
             
         }
@@ -173,11 +191,11 @@ public class ItemStack : MonoBehaviour
         {
             if (stackAmount <= maxHeight)
             {
-                _item.MoveAlongCurve(_item.transform.localPosition, nextStackPosition);
+                _item.MoveAlongCurve(_item.transform.localPosition, nextStackPosition, () => { _item.transform.localRotation = Quaternion.Euler(angleOffset); });
             }
             else
             {
-                _item.MoveAlongCurve(_item.transform.localPosition, nextStackPosition, () => { _item.gameObject.SetActive(false); });
+                _item.MoveAlongCurve(_item.transform.localPosition, nextStackPosition, () => { _item.transform.localRotation = Quaternion.Euler(angleOffset); _item.gameObject.SetActive(false); });
             }
                 
         }
@@ -203,6 +221,14 @@ public class ItemStack : MonoBehaviour
         }
 
         Player.instance?.MoneyAmountChange(_item.value);
+        if (stackedItemType == ItemType.Money)
+        {
+            AudioManager.instance.Play(SK.收金币);
+            TryVibrate();
+        }
+        else
+            AudioManager.instance.Play(SK.老鼠叠高高);
+        return true;
     }
 
  
@@ -258,6 +284,13 @@ public class ItemStack : MonoBehaviour
 
         //金钱数量减去物品的价值
         Player.instance?.MoneyAmountChange(-itemToRemove.value);
+        if (stackedItemType == ItemType.Money)
+        {
+            AudioManager.instance.Play(SK.投金币);
+            TryVibrate();
+        }
+        // else
+        //     AudioManager.instance.Play(SK.老鼠叠高高);
         return itemToRemove;
     }
 

@@ -87,8 +87,6 @@ public class LunaManager : MonoBehaviour
         var ui = GameObject.Find("UIManager");
         bool isLandscape = Screen.width > Screen.height;
         var win = ui.transform.Find(isLandscape ? "Win2" : "Win");
-        // var sine = win.GetComponentInChildren<SkeletonGraphic>();
-        // sine.AnimationState.SetAnimation(0, "yw", false);
         win.transform.Find("Button (1)").DOPunchScale(-Vector3.one * 0.2f, 1.5f, 1).SetLoops(-1);
         win.gameObject.SetActive(true);//显示胜利界面
         AudioManager.instance.Play(SK.结算页面弹出);
