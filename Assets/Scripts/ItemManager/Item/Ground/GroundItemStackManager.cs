@@ -25,7 +25,7 @@ public class GroundItemStackManager : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Equals("Player"))
+        if (other.CompareTag("Player"))
         {
             ShowBlueSprite();
         }
@@ -34,7 +34,7 @@ public class GroundItemStackManager : MonoBehaviour
     protected virtual void OnTriggerStay(Collider other)
     {
 
-        if (other.tag.Equals("Player"))
+        if (other.CompareTag("Player"))
         {
             ShowBlueSprite();
         }
@@ -42,7 +42,7 @@ public class GroundItemStackManager : MonoBehaviour
 
     protected virtual void OnTriggerExit(Collider other)
     {
-        if (other.tag.Equals("Player"))
+        if (other.CompareTag("Player"))
         {
             ShowWhiteSprite();
         }

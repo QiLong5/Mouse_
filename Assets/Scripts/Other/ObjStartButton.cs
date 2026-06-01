@@ -12,7 +12,7 @@ public class ObjStartButton : MonoBehaviour
     public bool isAlwayEnter;
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Equals("Player"))
+        if (other.CompareTag("Player"))
         {
          
             if (!isenter&&!isAlwayEnter)
@@ -26,7 +26,7 @@ public class ObjStartButton : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag.Equals("Player"))
+        if (other.CompareTag("Player"))
         {
             if (!isAlwayEnter)
             {
@@ -38,7 +38,7 @@ public class ObjStartButton : MonoBehaviour
 
     protected virtual void OnTriggerExit(Collider other)
     {
-        if (other.tag.Equals("Player"))
+        if (other.CompareTag("Player"))
         {
            
             if (isenter && !isAlwayEnter)

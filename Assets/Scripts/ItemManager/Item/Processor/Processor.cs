@@ -117,7 +117,7 @@ public class Processor : MonoBehaviour
     protected virtual void OnTriggerEnter(Collider other)
     {
 
-        if (other.tag.Equals("Player"))
+        if (other.CompareTag("Player"))
         {
             //ispprocess = true;
         }
@@ -125,7 +125,7 @@ public class Processor : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag.Equals("Player"))
+        if (other.CompareTag("Player"))
         {
             //ispprocess = true;
         }
@@ -134,7 +134,7 @@ public class Processor : MonoBehaviour
 
     protected virtual void OnTriggerExit(Collider other)
     {
-        if (other.tag.Equals("Player"))
+        if (other.CompareTag("Player"))
         {
             //ispprocess = false;
         }

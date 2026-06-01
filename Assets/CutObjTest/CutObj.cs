@@ -42,7 +42,7 @@ public class CutObj : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Equals("Enemy"))
+        if (other.CompareTag("Enemy"))
         {
             TriggerCut();
         }

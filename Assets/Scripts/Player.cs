@@ -161,7 +161,7 @@ public class Player : MonoSingleton<Player>
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Equals("GroundStack_DropItem"))
+        if (other.CompareTag("GroundStack_DropItem"))
         {
             var stackManager = other.GetComponent<GroundItemStackManager>();
             if (stackManager != null)
@@ -172,7 +172,7 @@ public class Player : MonoSingleton<Player>
             }
         }
 
-        if (other.tag.Equals("GroundStack_CollectItem"))
+        if (other.CompareTag("GroundStack_CollectItem"))
         {
             var stackManager = other.GetComponent<GroundItemStackManager>();
             if (stackManager != null)
@@ -182,12 +182,12 @@ public class Player : MonoSingleton<Player>
                 isDroppingOffItem = false;
             }
         }
-        if (other.tag.Equals("Home"))
+        if (other.CompareTag("Home"))
         {
             IsAtHome = true;
             attackRangeIndicator.Hide();
         }
-        if (other.tag.Equals("Enemy"))
+        if (other.CompareTag("Enemy"))
         {
 
             if (attackInterval <= 0&&!IsAttacking&&!IsAtHome)
@@ -205,7 +205,7 @@ public class Player : MonoSingleton<Player>
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag.Equals("GroundStack_DropItem"))
+        if (other.CompareTag("GroundStack_DropItem"))
         {
             if(targetGroundStackManager.gameObject!=other.gameObject)
             {
@@ -220,7 +220,7 @@ public class Player : MonoSingleton<Player>
             
         }
 
-        if (other.tag.Equals("GroundStack_CollectItem"))
+        if (other.CompareTag("GroundStack_CollectItem"))
         {
             if (targetGroundStackManager.gameObject != other.gameObject)
             {
@@ -234,7 +234,7 @@ public class Player : MonoSingleton<Player>
             }
              
         }
-        if (other.tag.Equals("Home"))
+        if (other.CompareTag("Home"))
         {
             IsAtHome = true;
             if (mHp < mHpMax)
@@ -249,7 +249,7 @@ public class Player : MonoSingleton<Player>
                 UIManager.instance.StopDanger();
             }
         }
-        if (other.tag.Equals("Enemy"))
+        if (other.CompareTag("Enemy"))
         {
             if (attackInterval<=0 && !IsAttacking && !IsAtHome)
             {
@@ -271,7 +271,7 @@ public class Player : MonoSingleton<Player>
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag.Equals("GroundStack_DropItem"))
+        if (other.CompareTag("GroundStack_DropItem"))
         {
             itemDropOffTimer = -1;
             isDroppingOffItem = false;
@@ -279,14 +279,14 @@ public class Player : MonoSingleton<Player>
             targetGroundStackManager = null;
         }
 
-        if (other.tag.Equals("GroundStack_CollectItem"))
+        if (other.CompareTag("GroundStack_CollectItem"))
         {
             itemDropOffTimer = -1;
             isCollectingItem = false;
             isDroppingOffItem = false;
             targetGroundStackManager = null;
         }
-        if (other.tag.Equals("Home"))
+        if (other.CompareTag("Home"))
         {
             IsAtHome = false;
             attackRangeIndicator.Show();

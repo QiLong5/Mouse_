@@ -64,7 +64,7 @@ public class Enemy : Npc
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Equals("Player"))
+        if (other.CompareTag("Player"))
         {
             if (!Player.instance.IsAtHome && !Player.instance.isDie)
             {
@@ -84,7 +84,7 @@ public class Enemy : Npc
     {
         if (currentState==EnemyState.Patrol)
         {
-            if (other.tag.Equals("Player"))
+            if (other.CompareTag("Player"))
             {
                 if (!Player.instance.IsAtHome&&!Player.instance.isDie)
                 {
@@ -95,7 +95,7 @@ public class Enemy : Npc
         }
         if (currentState == EnemyState.Attack)
         {
-            if (other.tag.Equals("Player")&&attackInterval<0)
+            if (other.CompareTag("Player")&&attackInterval<0)
             {
                 StateSwitch(EnemyState.Attack);
             }
@@ -103,7 +103,7 @@ public class Enemy : Npc
     }
     void OnTriggerExit(Collider other)
     {
-        if (other.tag.Equals("Player"))
+        if (other.CompareTag("Player"))
         {
             if (currentState == EnemyState.Chase)
             {

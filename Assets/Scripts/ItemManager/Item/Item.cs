@@ -85,7 +85,7 @@ public class Item : MonoBehaviour
     //物品碰到玩家时会被玩家捡起来
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Equals("Player") && !hasBeenAddedToPlayer)
+        if (other.CompareTag("Player") && !hasBeenAddedToPlayer)
         {
                 playerStackManager.stackList[targetStackListIndex].StackItem(this);
         }
