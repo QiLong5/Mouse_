@@ -311,6 +311,7 @@ public abstract class UIFollowerBase : MonoBehaviour
     /// </summary>
     protected virtual void UpdateScaleByCameraZoom()
     {
+        return;
         if (CameraManager.instance.isCress)
         {
             transform.localScale = Vector3.one * (cameraScaleFactor * 0.5f) / Camera.main.orthographicSize;
