@@ -244,9 +244,9 @@ public class ItemStack : MonoBehaviour
 
         if (itemToRemove.canDoFurtherMove == false)
         {
-            itemToRemove.StopAllCoroutines();
-            itemToRemove.canDoFurtherMove = true;
-            //return null;
+            // itemToRemove.StopAllCoroutines();
+            // itemToRemove.canDoFurtherMove = true;
+            return null;//金币正在飞行时，等待金币飞行结束后才能移出
         }
         if (isOpenBend)
         {
