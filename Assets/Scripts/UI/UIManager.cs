@@ -11,8 +11,6 @@ public class UIManager :MonoSingleton<UIManager>
     public List<GameObject> mCress;
     public List<GameObject> mVer;
 
-    public List<Sprite> mNumSprites;
-
     public List<Image> gold;
 
     public RectTransform mCanvas;
@@ -80,75 +78,6 @@ public class UIManager :MonoSingleton<UIManager>
     {
      //   SetNum(gold, num);
         SetCoin(num,true);
-    }
-    /// <summary>
-    /// 设置图片数字
-    /// </summary>
-    /// <param name="NumSprite"></param>
-    /// <param name="Num"></param>
-    public void SetNum(List<Image> NumSprite, int Num)
-    {
-        if (NumSprite==null|| mNumSprites.Count==0)
-        {
-            return;
-        }
-        if (Num >= 9999)
-        {
-            NumSprite[0].gameObject.SetActive(true);
-            NumSprite[1].gameObject.SetActive(true);
-            NumSprite[2].gameObject.SetActive(true);
-            NumSprite[3].gameObject.SetActive(true);
-            NumSprite[3].sprite = mNumSprites[9];
-            NumSprite[2].sprite = mNumSprites[9];
-            NumSprite[1].sprite = mNumSprites[9];
-            NumSprite[0].sprite = mNumSprites[9];            
-        }
-        else if (Num >= 1000)
-        {
-            NumSprite[0].gameObject.SetActive(true);
-            NumSprite[1].gameObject.SetActive(true);
-            NumSprite[2].gameObject.SetActive(true);
-            NumSprite[3].gameObject.SetActive(true);
-            NumSprite[0].sprite = mNumSprites[(int)(Num / 1000)];
-            NumSprite[1].sprite = mNumSprites[(int)(Num % 1000 / 100)];
-            NumSprite[2].sprite = mNumSprites[(int)(Num % 100 / 10)];
-            NumSprite[3].sprite = mNumSprites[(int)(Num % 10)];          
-        }
-        else if (Num >= 100)
-        {
-            NumSprite[0].gameObject.SetActive(true);
-            NumSprite[1].gameObject.SetActive(true);
-            NumSprite[2].gameObject.SetActive(true);
-            NumSprite[3].gameObject.SetActive(false);
-            NumSprite[0].sprite = mNumSprites[(int)(Num / 100)];
-            NumSprite[1].sprite = mNumSprites[(int)(Num % 100 / 10)];
-            NumSprite[2].sprite = mNumSprites[(int)(Num % 10)];        
-        }
-        else if (Num >= 10)
-        {
-            NumSprite[3].gameObject.SetActive(false);
-            NumSprite[2].gameObject.SetActive(false);
-            NumSprite[0].gameObject.SetActive(true);
-            NumSprite[1].gameObject.SetActive(true);
-            NumSprite[0].sprite = mNumSprites[(int)(Num / 10)];
-            NumSprite[1].sprite = mNumSprites[(int)(Num % 10)];           
-        }
-        else if (Num > 0)
-        {
-            NumSprite[3].gameObject.SetActive(false);
-            NumSprite[2].gameObject.SetActive(false);
-            NumSprite[1].gameObject.SetActive(false);
-            NumSprite[0].gameObject.SetActive(true);
-            NumSprite[0].sprite = mNumSprites[(int)(Num % 10)];            
-        }
-        else
-        {
-            NumSprite[3].gameObject.SetActive(false);
-            NumSprite[2].gameObject.SetActive(false);
-            NumSprite[1].gameObject.SetActive(false);
-            NumSprite[0].gameObject.SetActive(true);
-            NumSprite[0].sprite = mNumSprites[0];            
-        }
     }
 
     public void StartDanger()
@@ -228,6 +157,8 @@ public class UIManager :MonoSingleton<UIManager>
         // 更新主文本
         mInjectionUI.text = currentPatient.ToString();
         mInjectionUI.color = Color.green;
+        mInjectionUI.transform.localScale = Vector3.one;
+        mInjectionUI.transform.DOKill();
         mInjectionUI.transform.DOPunchScale(Vector3.one * 0.1f, 0.3f).OnComplete(() => mInjectionUI.color = Color.white);
     }
     public void NumChange(RectTransform change, int changeNum)

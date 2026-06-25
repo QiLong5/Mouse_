@@ -110,7 +110,7 @@ public class Player : MonoSingleton<Player>
         }
     }
    
-   public bool IsAtHome;
+    public bool IsAtHome;
     void Start()
     {
         mHp = GameDataEditor.instance.playerMaxHp;
@@ -131,12 +131,8 @@ public class Player : MonoSingleton<Player>
         }
     }
 
-    void Update()
-    {
 
-    }
-
-    void FixedUpdate()
+    void LateUpdate()
     {
         if (isDie || !CameraManager.instance.IsCanMove)
         {

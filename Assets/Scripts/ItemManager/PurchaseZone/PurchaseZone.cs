@@ -21,7 +21,7 @@ public class PurchaseZone : MonoBehaviour
     [Space]
     [Header("Purchase progress info / 购买进度信息")]
     [SerializeField] protected Image fillImage; //用于填充的图片（绿色背景）
-    [SerializeField] private List<Image> remainingPrice_Img; //显示还需要的金钱数量
+    [SerializeField] private TextMeshProUGUI remainingPrice_Img; //显示还需要的金钱数量
     protected float purchaseProgress;
 
     public bool iscomplete = false;
@@ -62,8 +62,6 @@ public class PurchaseZone : MonoBehaviour
         cachedTargetStack = playerStackManager.GetStackByItemType(requiredItemType);
 
         purchaseProgress = 0;
-
-        UIManager.instance.SetNum(remainingPrice_Img, remainingPrice);
         mlocalescale = canvas.transform.localScale;
         oriQua = canvas.transform.localRotation;
         StartBreath();
@@ -191,7 +189,6 @@ public class PurchaseZone : MonoBehaviour
         purchaseProgress = (float)paidAmount / (float)price;
         fillImage.fillAmount = purchaseProgress;
         remainTxt.text = remainingPrice.ToString();
-        UIManager.instance.SetNum(remainingPrice_Img, remainingPrice);
         OnPurchaseProgress();
 
         if (remainingPrice <= 0)

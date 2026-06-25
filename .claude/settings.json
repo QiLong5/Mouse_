@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:docs.coplay.dev)",
+      "Read(//c/Users/Administrator/AppData/Roaming/npm/node_modules/@anthropic-ai/claude-code/**)",
+      "Read(//c/Users/Administrator/**)",
+      "Read(//c/Users/Administrator/.claude/**)",
+      "Bash(uv --version)",
+      "Bash(py --version)",
+      "Bash(node -e \"const c=require\\('C:/Users/Administrator/.claude.json'\\); console.log\\('top-level keys:', Object.keys\\(c\\).join\\(', '\\)\\); console.log\\('user mcpServers:', JSON.stringify\\(c.mcpServers||{}, null, 2\\)\\); const p=c.projects && c.projects['c:\\\\\\\\\\\\\\\\Users\\\\\\\\\\\\\\\\Administrator\\\\\\\\\\\\\\\\Desktop\\\\\\\\\\\\\\\\unity Project\\\\\\\\\\\\\\\\Mouse']; console.log\\('project entry exists:', !!p\\); if\\(p\\){console.log\\('project keys:', Object.keys\\(p\\).join\\(', '\\)\\); console.log\\('project mcpServers:', JSON.stringify\\(p.mcpServers||{}, null, 2\\)\\);}\")",
+      "mcp__coplay-mcp__get_unity_editor_state"
+    ]
+  }
+}

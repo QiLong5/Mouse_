@@ -68,6 +68,7 @@ public class LunaManager : MonoBehaviour
     /// </summary>
     public void GameOver()
     {
+        if (isGameOver) return;
         isGameOver = true;
         //objStartButton.OnDown();
 

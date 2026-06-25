@@ -961,6 +961,7 @@ MonoBehaviour:
   stackedItemType: 0
   maxStackAmount: 100
   maxHeight: 10
+  angleOffset: {x: 0, y: 0, z: 0}
   isOpenBend: 0
   bendDistance: 0.1
   bendDuration: 0.5
@@ -1020,8 +1021,7 @@ MonoBehaviour:
   lineMaterial: {fileID: 2100000, guid: 5f2c10fac43f7a64d82058c4c3f6e92a, type: 2}
   lineWidth: 0.8
   mArrowsParent: {fileID: 1064399561}
-  targets:
-  - {fileID: 465220625}
+  targets: []
   closeDistanceThreshold: 1
   yOffset: 0.1
   playerTransform: {fileID: 82923168}
@@ -1240,6 +1240,7 @@ MonoBehaviour:
   stackedItemType: 0
   maxStackAmount: 100
   maxHeight: 10
+  angleOffset: {x: 0, y: 0, z: 0}
   isOpenBend: 0
   bendDistance: 0.1
   bendDuration: 0.5
@@ -1326,6 +1327,7 @@ MonoBehaviour:
   stackedItemType: 0
   maxStackAmount: 100
   maxHeight: 10
+  angleOffset: {x: 0, y: 0, z: 0}
   isOpenBend: 0
   bendDistance: 0.1
   bendDuration: 0.5
@@ -1445,12 +1447,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca8af6c1b5660084fbd040528269c145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &465220625 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5448000706090649174, guid: 7da87e05d5ba2234f8c9ab9565d379e3,
-    type: 3}
-  m_PrefabInstance: {fileID: 5371608983048720820}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &472599139
 GameObject:
   m_ObjectHideFlags: 0
@@ -1498,6 +1494,7 @@ MonoBehaviour:
   stackedItemType: 0
   maxStackAmount: 100
   maxHeight: 10
+  angleOffset: {x: 0, y: 0, z: 0}
   isOpenBend: 0
   bendDistance: 0.1
   bendDuration: 0.5
@@ -3163,6 +3160,7 @@ MonoBehaviour:
   stackedItemType: 0
   maxStackAmount: 100
   maxHeight: 10
+  angleOffset: {x: 0, y: 0, z: 0}
   isOpenBend: 0
   bendDistance: 0.1
   bendDuration: 0.5
@@ -3247,6 +3245,7 @@ MonoBehaviour:
   stackedItemType: 0
   maxStackAmount: 100
   maxHeight: 20
+  angleOffset: {x: 0, y: 0, z: 0}
   isOpenBend: 1
   bendDistance: 1
   bendDuration: 0.5
@@ -5021,6 +5020,7 @@ MonoBehaviour:
   stackedItemType: 0
   maxStackAmount: 100
   maxHeight: 10
+  angleOffset: {x: 0, y: 0, z: 0}
   isOpenBend: 0
   bendDistance: 0.1
   bendDuration: 0.5
@@ -5305,6 +5305,7 @@ MonoBehaviour:
   stackedItemType: 2
   maxStackAmount: 100
   maxHeight: 20
+  angleOffset: {x: 0, y: 0, z: 0}
   isOpenBend: 1
   bendDistance: 1
   bendDuration: 0.5
@@ -5369,6 +5370,7 @@ MonoBehaviour:
   stackedItemType: 1
   maxStackAmount: 100
   maxHeight: 20
+  angleOffset: {x: 0, y: 0, z: 0}
   isOpenBend: 1
   bendDistance: 1
   bendDuration: 0.5
