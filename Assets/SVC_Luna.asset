@@ -726,7 +726,7 @@ MonoBehaviour:
     - _ENABLEFADE_ON
   _includedShaderVariants: []
   _excludedShaderVariants: []
-  version: 52
+  version: 59
   _shaderParsedShaders:
   - ParsedSubShaders:
     - Index: 0
@@ -13382,4 +13382,4 @@ MonoBehaviour:
       keywords: []
   _modifiedShaders:
   - Assets/Shaders/CustomURPLit.shader
-  invalidShaders: 0
+  invalidShaders: 1
