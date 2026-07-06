@@ -662,6 +662,7 @@ GameObject:
   m_Component:
   - component: {fileID: 119325410}
   - component: {fileID: 119325411}
+  - component: {fileID: 119325412}
   m_Layer: 0
   m_Name: LanguageManager
   m_TagString: Untagged
@@ -699,6 +700,61 @@ MonoBehaviour:
   table: {fileID: 11400000, guid: 1b76a9be44fa42d4dba03cec07e34cb7, type: 2}
   currentLanguage: zh-CN
   editorLanguage: 0
+--- !u!114 &119325412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119325409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 452671b95ef43a040aa54bf8f892f652, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  languageObjects: []
+  supportedLanguages:
+  - en-US
+  - es-ES
+  - pt-PT
+  - de-DE
+  - fr-FR
+  - ja-JP
+  - ko-KR
+  - ru-RU
+  - ar-SA
+  - bg-BG
+  - cs-CZ
+  - da-DK
+  - el-GR
+  - fi-FI
+  - he-IL
+  - hr-HR
+  - hu-HU
+  - id-ID
+  - it-IT
+  - lt-LT
+  - ms-MY
+  - nl-NL
+  - pl-PL
+  - ro-RO
+  - sk-SK
+  - sv-SE
+  - th-TH
+  - tr-TR
+  - uk-UA
+  - vi-VN
+  - zh-CN
+  - nb-NO
+  - az-AZ
+  - be-BY
+  - kk-KZ
+  - uz-UZ
+  - tl-PH
+  - zh-TW
+  - is-IS
+  - hi-IN
+  name: en-US
 --- !u!1 &128275174
 GameObject:
   m_ObjectHideFlags: 0
