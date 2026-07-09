@@ -1,0 +1,199 @@
+fileFormatVersion: 2
+guid: 74ee69f21893b834dbf338abf11896b2
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: EF_public_Mesh_00_-BHB-
+    100004: EF_public_Mesh_01_-BHB-
+    100006: EF_public_Mesh_02_-BHB-
+    100008: EF_public_Mesh_03_-BHB-
+    100010: EF_public_Mesh_04_-BHB-
+    100012: EF_public_Mesh_05_-BHB-
+    100014: EF_public_Mesh_06_-BHB-
+    100016: EF_public_Mesh_07_-BHB-
+    100018: EF_public_Mesh_08_-BHB-
+    100020: EF_public_Mesh_09_-BHB-
+    100022: EF_public_Mesh_10_-BHB-
+    100024: EF_public_Mesh_11_-BHB-
+    100026: EF_public_Mesh_12_-BHB-
+    100028: EF_public_Mesh_13_-BHB-
+    100030: EF_public_Mesh_14_-BHB-
+    100032: EF_public_Mesh_15_-BHB-
+    100034: EF_public_Mesh_16_-BHB-
+    100036: EF_public_Mesh_17_-BHB-
+    100038: EF_public_Mesh_18_-BHB-
+    100040: EF_public_Mesh_19_-BHB-
+    100042: EF_public_Mesh_20_-BHB-
+    100044: EF_public_Mesh_21_-BHB-
+    400000: //RootNode
+    400002: EF_public_Mesh_00_-BHB-
+    400004: EF_public_Mesh_01_-BHB-
+    400006: EF_public_Mesh_02_-BHB-
+    400008: EF_public_Mesh_03_-BHB-
+    400010: EF_public_Mesh_04_-BHB-
+    400012: EF_public_Mesh_05_-BHB-
+    400014: EF_public_Mesh_06_-BHB-
+    400016: EF_public_Mesh_07_-BHB-
+    400018: EF_public_Mesh_08_-BHB-
+    400020: EF_public_Mesh_09_-BHB-
+    400022: EF_public_Mesh_10_-BHB-
+    400024: EF_public_Mesh_11_-BHB-
+    400026: EF_public_Mesh_12_-BHB-
+    400028: EF_public_Mesh_13_-BHB-
+    400030: EF_public_Mesh_14_-BHB-
+    400032: EF_public_Mesh_15_-BHB-
+    400034: EF_public_Mesh_16_-BHB-
+    400036: EF_public_Mesh_17_-BHB-
+    400038: EF_public_Mesh_18_-BHB-
+    400040: EF_public_Mesh_19_-BHB-
+    400042: EF_public_Mesh_20_-BHB-
+    400044: EF_public_Mesh_21_-BHB-
+    2100000: 01 - Default
+    2300000: EF_public_Mesh_00_-BHB-
+    2300002: EF_public_Mesh_01_-BHB-
+    2300004: EF_public_Mesh_02_-BHB-
+    2300006: EF_public_Mesh_03_-BHB-
+    2300008: EF_public_Mesh_04_-BHB-
+    2300010: EF_public_Mesh_05_-BHB-
+    2300012: EF_public_Mesh_06_-BHB-
+    2300014: EF_public_Mesh_07_-BHB-
+    2300016: EF_public_Mesh_08_-BHB-
+    2300018: EF_public_Mesh_09_-BHB-
+    2300020: EF_public_Mesh_10_-BHB-
+    2300022: EF_public_Mesh_11_-BHB-
+    2300024: EF_public_Mesh_12_-BHB-
+    2300026: EF_public_Mesh_13_-BHB-
+    2300028: EF_public_Mesh_14_-BHB-
+    2300030: EF_public_Mesh_15_-BHB-
+    2300032: EF_public_Mesh_16_-BHB-
+    2300034: EF_public_Mesh_17_-BHB-
+    2300036: EF_public_Mesh_18_-BHB-
+    2300038: EF_public_Mesh_19_-BHB-
+    2300040: EF_public_Mesh_20_-BHB-
+    2300042: EF_public_Mesh_21_-BHB-
+    3300000: EF_public_Mesh_00_-BHB-
+    3300002: EF_public_Mesh_01_-BHB-
+    3300004: EF_public_Mesh_02_-BHB-
+    3300006: EF_public_Mesh_03_-BHB-
+    3300008: EF_public_Mesh_04_-BHB-
+    3300010: EF_public_Mesh_05_-BHB-
+    3300012: EF_public_Mesh_06_-BHB-
+    3300014: EF_public_Mesh_07_-BHB-
+    3300016: EF_public_Mesh_08_-BHB-
+    3300018: EF_public_Mesh_09_-BHB-
+    3300020: EF_public_Mesh_10_-BHB-
+    3300022: EF_public_Mesh_11_-BHB-
+    3300024: EF_public_Mesh_12_-BHB-
+    3300026: EF_public_Mesh_13_-BHB-
+    3300028: EF_public_Mesh_14_-BHB-
+    3300030: EF_public_Mesh_15_-BHB-
+    3300032: EF_public_Mesh_16_-BHB-
+    3300034: EF_public_Mesh_17_-BHB-
+    3300036: EF_public_Mesh_18_-BHB-
+    3300038: EF_public_Mesh_19_-BHB-
+    3300040: EF_public_Mesh_20_-BHB-
+    3300042: EF_public_Mesh_21_-BHB-
+    4300000: EF_public_Mesh_01_-BHB-
+    4300002: EF_public_Mesh_02_-BHB-
+    4300004: EF_public_Mesh_03_-BHB-
+    4300006: EF_public_Mesh_04_-BHB-
+    4300008: EF_public_Mesh_05_-BHB-
+    4300010: EF_public_Mesh_06_-BHB-
+    4300012: EF_public_Mesh_07_-BHB-
+    4300014: EF_public_Mesh_08_-BHB-
+    4300016: EF_public_Mesh_09_-BHB-
+    4300018: EF_public_Mesh_10_-BHB-
+    4300020: EF_public_Mesh_12_-BHB-
+    4300022: EF_public_Mesh_11_-BHB-
+    4300024: EF_public_Mesh_13_-BHB-
+    4300026: EF_public_Mesh_14_-BHB-
+    4300028: EF_public_Mesh_15_-BHB-
+    4300030: EF_public_Mesh_16_-BHB-
+    4300032: EF_public_Mesh_17_-BHB-
+    4300034: EF_public_Mesh_00_-BHB-
+    4300036: EF_public_Mesh_18_-BHB-
+    4300038: EF_public_Mesh_19_-BHB-
+    4300040: EF_public_Mesh_21_-BHB-
+    4300042: EF_public_Mesh_20_-BHB-
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
