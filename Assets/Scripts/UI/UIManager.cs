@@ -11,6 +11,8 @@ public class UIManager :MonoSingleton<UIManager>
     public List<GameObject> mCress;
     public List<GameObject> mVer;
 
+    public List<Sprite> mNumSprites;
+
     public List<Image> gold;
 
     public RectTransform mCanvas;
@@ -29,21 +31,25 @@ public class UIManager :MonoSingleton<UIManager>
     private int maxPatient;
     private int currentPatient;
     private int coinNum;//当前金币数量
+    private Vector3 startPos;
     [Header("引导手指")]
     public Transform tipfinger;
     public Image tipbutton;
     private CanvasGroup tipfingerCanvasGroup;
     private Coroutine tipfingerCoroutine;
     private Vector3 tipfingerOriginalScale;
+
     private void Start()
     {
         SetCoin(0, false);
-        if(LunaManager.instance.jumpMode== JumpMode.GuideFinger)
+        if (LunaManager.instance.jumpMode == JumpMode.GuideFinger)
             StartTipFinger();
 
-        logoBtn.transform.DOPunchScale(-Vector3.one*0.1f, 1.5f,1).SetLoops(-1);
+        startPos = mInjectionChangeUI.anchoredPosition;
+        if(!LunaManager.IsGoogle())
+            logoBtn.transform.DOPunchScale(-Vector3.one*0.1f, 1.5f,1).SetLoops(-1);
         //currentPatient = maxPatient = GameDataEditor.instance.GetOtherData.maxInjection;
-        currentPatient = maxPatient = 20;
+        currentPatient = maxPatient = 40;
         mInjectionMaxUI.text =  "/" + maxPatient;
         mInjectionUI.text = currentPatient.ToString();
     }
@@ -78,6 +84,75 @@ public class UIManager :MonoSingleton<UIManager>
     {
      //   SetNum(gold, num);
         SetCoin(num,true);
+    }
+    /// <summary>
+    /// 设置图片数字
+    /// </summary>
+    /// <param name="NumSprite"></param>
+    /// <param name="Num"></param>
+    public void SetNum(List<Image> NumSprite, int Num)
+    {
+        if (NumSprite==null|| mNumSprites.Count==0)
+        {
+            return;
+        }
+        if (Num >= 9999)
+        {
+            NumSprite[0].gameObject.SetActive(true);
+            NumSprite[1].gameObject.SetActive(true);
+            NumSprite[2].gameObject.SetActive(true);
+            NumSprite[3].gameObject.SetActive(true);
+            NumSprite[3].sprite = mNumSprites[9];
+            NumSprite[2].sprite = mNumSprites[9];
+            NumSprite[1].sprite = mNumSprites[9];
+            NumSprite[0].sprite = mNumSprites[9];            
+        }
+        else if (Num >= 1000)
+        {
+            NumSprite[0].gameObject.SetActive(true);
+            NumSprite[1].gameObject.SetActive(true);
+            NumSprite[2].gameObject.SetActive(true);
+            NumSprite[3].gameObject.SetActive(true);
+            NumSprite[0].sprite = mNumSprites[(int)(Num / 1000)];
+            NumSprite[1].sprite = mNumSprites[(int)(Num % 1000 / 100)];
+            NumSprite[2].sprite = mNumSprites[(int)(Num % 100 / 10)];
+            NumSprite[3].sprite = mNumSprites[(int)(Num % 10)];          
+        }
+        else if (Num >= 100)
+        {
+            NumSprite[0].gameObject.SetActive(true);
+            NumSprite[1].gameObject.SetActive(true);
+            NumSprite[2].gameObject.SetActive(true);
+            NumSprite[3].gameObject.SetActive(false);
+            NumSprite[0].sprite = mNumSprites[(int)(Num / 100)];
+            NumSprite[1].sprite = mNumSprites[(int)(Num % 100 / 10)];
+            NumSprite[2].sprite = mNumSprites[(int)(Num % 10)];        
+        }
+        else if (Num >= 10)
+        {
+            NumSprite[3].gameObject.SetActive(false);
+            NumSprite[2].gameObject.SetActive(false);
+            NumSprite[0].gameObject.SetActive(true);
+            NumSprite[1].gameObject.SetActive(true);
+            NumSprite[0].sprite = mNumSprites[(int)(Num / 10)];
+            NumSprite[1].sprite = mNumSprites[(int)(Num % 10)];           
+        }
+        else if (Num > 0)
+        {
+            NumSprite[3].gameObject.SetActive(false);
+            NumSprite[2].gameObject.SetActive(false);
+            NumSprite[1].gameObject.SetActive(false);
+            NumSprite[0].gameObject.SetActive(true);
+            NumSprite[0].sprite = mNumSprites[(int)(Num % 10)];            
+        }
+        else
+        {
+            NumSprite[3].gameObject.SetActive(false);
+            NumSprite[2].gameObject.SetActive(false);
+            NumSprite[1].gameObject.SetActive(false);
+            NumSprite[0].gameObject.SetActive(true);
+            NumSprite[0].sprite = mNumSprites[0];            
+        }
     }
 
     public void StartDanger()
@@ -143,36 +218,33 @@ public class UIManager :MonoSingleton<UIManager>
 
     public void SetInjection(int changeNum)
     {
-        if (changeNum == 0) return;
+        if (changeNum == 0||currentPatient==0) return;
         currentPatient += changeNum;
         if (currentPatient <= 0)
-        {
             currentPatient = 0;
-            return;
-        }
 
         // 弹出变化量文本
-        NumChange(mInjectionChangeUI, changeNum);
+        NumChange(changeNum);
 
         // 更新主文本
         mInjectionUI.text = currentPatient.ToString();
         mInjectionUI.color = Color.green;
         mInjectionUI.transform.localScale = Vector3.one;
         mInjectionUI.transform.DOKill();
-        mInjectionUI.transform.DOPunchScale(Vector3.one * 0.1f, 0.3f).OnComplete(() => mInjectionUI.color = Color.white);
+        if(!LunaManager.IsGoogle())
+            mInjectionUI.transform.DOPunchScale(Vector3.one * 0.1f, 0.3f).OnComplete(() => mInjectionUI.color = Color.white);
     }
-    public void NumChange(RectTransform change, int changeNum)
+    public void NumChange(int changeNum)
     {
         // 弹出变化量文本
-        change.gameObject.SetActive(true);
-        change.GetChild(0).GetComponent<TextMeshProUGUI>().text = changeNum.ToString();
-        var rt = change;
-        var startPos = rt.anchoredPosition;
+        mInjectionChangeUI.gameObject.SetActive(true);
+        mInjectionChangeUI.GetChild(0).GetComponent<TextMeshProUGUI>().text = changeNum.ToString();
+        var rt = mInjectionChangeUI;
         rt.anchoredPosition = startPos;
         DOTween.Kill(rt);
         rt.DOAnchorPosY(startPos.y + injectionPopUpDistance, 0.5f).SetEase(Ease.OutQuad).OnComplete(() =>
         {
-            change.gameObject.SetActive(false);
+            mInjectionChangeUI.gameObject.SetActive(false);
             rt.anchoredPosition = startPos;
         });
     }
@@ -215,7 +287,7 @@ public class UIManager :MonoSingleton<UIManager>
     }
     private IEnumerator TipFingerLoop()
     {
-        //yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(30f);
         while (!LunaManager.instance.isGameOver)
         {
             ShowTipFinger();

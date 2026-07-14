@@ -21,15 +21,18 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: "\u7BAD\u5934"
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: 4800000, guid: 62da5cf7899d5144bbe128a4fa754691, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _LIQUIDAXIS_Z
+  - _RECEIVESHADOWS_ON
+  - _RECEIVE_SHADOWS
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap:
     RenderType: Opaque
   disabledShaderPasses: []
@@ -41,7 +44,19 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _BlendMapB:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BlendMapG:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ChannelMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -66,6 +81,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -100,24 +123,87 @@ Material:
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
+    - _ChannelBlendSharpness: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _DoubleSided: 0
     - _DstBlend: 0
     - _DstBlendAlpha: 0
+    - _EnableOutline: 0
     - _EnvironmentReflections: 1
+    - _FakeLight10_AttenuationPower: 2
+    - _FakeLight10_Enabled: 1
+    - _FakeLight10_Intensity: 10
+    - _FakeLight10_Range: 22.03
+    - _FakeLight11_AttenuationPower: 2
+    - _FakeLight11_Enabled: 1
+    - _FakeLight11_Intensity: 20
+    - _FakeLight11_Range: 22.03
+    - _FakeLight12_AttenuationPower: 2
+    - _FakeLight12_Enabled: 1
+    - _FakeLight12_Intensity: 20
+    - _FakeLight12_Range: 22.03
+    - _FakeLight1_AttenuationPower: 2
+    - _FakeLight1_Enabled: 1
+    - _FakeLight1_Intensity: 20
+    - _FakeLight1_Range: 22.03
+    - _FakeLight2_AttenuationPower: 2
+    - _FakeLight2_Enabled: 1
+    - _FakeLight2_Intensity: 20
+    - _FakeLight2_Range: 22.03
+    - _FakeLight3_AttenuationPower: 2
+    - _FakeLight3_Enabled: 1
+    - _FakeLight3_Intensity: 2
+    - _FakeLight3_Range: 22.03
+    - _FakeLight4_AttenuationPower: 2
+    - _FakeLight4_Enabled: 1
+    - _FakeLight4_Intensity: 2
+    - _FakeLight4_Range: 22.03
+    - _FakeLight5_AttenuationPower: 2
+    - _FakeLight5_Enabled: 1
+    - _FakeLight5_Intensity: 20
+    - _FakeLight5_Range: 22.03
+    - _FakeLight6_AttenuationPower: 2
+    - _FakeLight6_Enabled: 1
+    - _FakeLight6_Intensity: 60
+    - _FakeLight6_Range: 22.03
+    - _FakeLight7_AttenuationPower: 2
+    - _FakeLight7_Enabled: 1
+    - _FakeLight7_Intensity: 2
+    - _FakeLight7_Range: 22.03
+    - _FakeLight8_AttenuationPower: 2
+    - _FakeLight8_Enabled: 1
+    - _FakeLight8_Intensity: 2
+    - _FakeLight8_Range: 22.03
+    - _FakeLight9_AttenuationPower: 2
+    - _FakeLight9_Enabled: 1
+    - _FakeLight9_Intensity: 20
+    - _FakeLight9_Range: 22.03
+    - _FillAmount: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _LiquidAxis: 2
+    - _LiquidBottom: 0
+    - _LiquidTop: 1
+    - _LiquidTopBand: 0.02
     - _Metallic: 0
     - _Mode: 0
+    - _NormalScale: 1
     - _OcclusionStrength: 1
+    - _OutlineWidth: 0.01
     - _Parallax: 0.02
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _RenderMode: 0
+    - _RimIntensity: 1
+    - _RimPower: 3
+    - _ShadowSmoothness: 0.1
+    - _ShadowSteps: 2
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -125,11 +211,52 @@ Material:
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _UVSec: 0
+    - _UseChannelBlend: 0
+    - _UseCustomLighting: 0
+    - _UseEmission: 0
+    - _UseFakePointLight: 0
+    - _UseLiquidCut: 0
+    - _UseNormalMap: 0
+    - _UseRimLight: 0
+    - _UseStylizedLighting: 0
+    - _UseVertexColor: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0, g: 0.7877617, b: 1, a: 1}
+    - _BaseColor: {r: 0.35294116, g: 0.85106814, b: 1, a: 1}
+    - _BlendColorB: {r: 1, g: 1, b: 1, a: 1}
+    - _BlendColorG: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0, g: 0.7877617, b: 1, a: 1}
+    - _CustomAmbientColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _CustomLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FakeLight10_Color: {r: 1, g: 0.9363207, b: 0.7028302, a: 1}
+    - _FakeLight10_Pos: {r: 7.161753, g: 4.4228187, b: -6.40322, a: 0}
+    - _FakeLight11_Color: {r: 1, g: 0.9342992, b: 0.6933962, a: 1}
+    - _FakeLight11_Pos: {r: 15.399254, g: 4.6853204, b: 8.51553, a: 0}
+    - _FakeLight12_Color: {r: 1, g: 0.90685576, b: 0.5613208, a: 1}
+    - _FakeLight12_Pos: {r: 8.049253, g: 5.01032, b: 15.82803, a: 0}
+    - _FakeLight1_Color: {r: 1, g: 0.9342992, b: 0.6933962, a: 1}
+    - _FakeLight1_Pos: {r: -1.9194967, g: 4.50407, b: -4.040721, a: 0}
+    - _FakeLight2_Color: {r: 1, g: 0.9363207, b: 0.7028302, a: 1}
+    - _FakeLight2_Pos: {r: 12.586754, g: 4.4228187, b: -2.8344707, a: 0}
+    - _FakeLight3_Color: {r: 1, g: 0.8655527, b: 0.56078434, a: 1}
+    - _FakeLight3_Pos: {r: -1.0569966, g: 1.3371944, b: -0.86572075, a: 0}
+    - _FakeLight4_Color: {r: 1, g: 0.8655527, b: 0.56078434, a: 1}
+    - _FakeLight4_Pos: {r: 12.136753, g: 1.2228203, b: 3.62178, a: 0}
+    - _FakeLight5_Color: {r: 1, g: 0.9363207, b: 0.7028302, a: 1}
+    - _FakeLight5_Pos: {r: 16.080503, g: 5.3103204, b: 3.09053, a: 0}
+    - _FakeLight6_Color: {r: 1, g: 0.92127526, b: 0.6367924, a: 1}
+    - _FakeLight6_Pos: {r: 3.8680034, g: 6.94782, b: 5.2967796, a: 0}
+    - _FakeLight7_Color: {r: 1, g: 0.8655527, b: 0.56078434, a: 1}
+    - _FakeLight7_Pos: {r: 11.986753, g: 1.0828199, b: 10.65553, a: 0}
+    - _FakeLight8_Color: {r: 1, g: 0.8655527, b: 0.56078434, a: 1}
+    - _FakeLight8_Pos: {r: 5.8117533, g: 1.6334453, b: -1.0157204, a: 0}
+    - _FakeLight9_Color: {r: 1, g: 0.90685576, b: 0.5613208, a: 1}
+    - _FakeLight9_Pos: {r: -3.0944967, g: 4.429071, b: 16.815529, a: 0}
+    - _LiquidTopColor: {r: 1, g: 1, b: 1, a: 0}
+    - _MainTiling: {r: 1, g: 1, b: 0, a: 0}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

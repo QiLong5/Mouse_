@@ -12,8 +12,6 @@ using UnityEngine.UI;
 public class Player : MonoSingleton<Player>
 {
     [Header("Move")]
-    public YangJoystick mJoystick;
-    
     public Rigidbody mRigidbody;
     //玩家移动速度
     public float speed =>GameDataEditor.instance.playerSpeed;
@@ -298,14 +296,14 @@ public class Player : MonoSingleton<Player>
             OnStop();
             return;
         }
-        if (mJoystick == null)
+        if (TouchArea.instance.mJoystickHandle == null)
         {
             return;
         }
-        if (mJoystick.dragging && Input.GetMouseButton(0))
+        if (TouchArea.instance.mJoystickHandle.dragging && Input.GetMouseButton(0))
         {
             IsMove = true;
-            float targetAngle = Mathf.Atan2(mJoystick.Horizontal, mJoystick.Vertical) * Mathf.Rad2Deg;
+            float targetAngle = Mathf.Atan2(TouchArea.instance.mJoystickHandle.Horizontal, TouchArea.instance.mJoystickHandle.Vertical) * Mathf.Rad2Deg;
             float worldTargetAngle = targetAngle + Camera.main.transform.eulerAngles.y - mAngleDis;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, worldTargetAngle , ref mTurnSmoothVelocity, mTurnSmoothTime);
             mRigidbody.velocity = new Vector3((transform.forward * speed).x, mRigidbody.velocity.y, (transform.forward * speed).z);

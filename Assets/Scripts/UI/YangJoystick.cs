@@ -18,33 +18,35 @@ public class YangJoystick : MonoBehaviour
 
     private Vector2 delta = Vector2.zero;
 
-    float radius;
+    [SerializeField]
+    private float radius;
+    private RectTransform rect;
 
     private void OnEnable()
     {
+        rect = GetComponent<RectTransform>();
+        if(radius==0)
+            radius = BG.rectTransform.sizeDelta.x / 2f;
         rectTransform.anchoredPosition = new Vector2(0, 0);
     }
 
     void Update()
     {
-        radius = BG.rectTransform.sizeDelta.x / 2f;
-
-        if (GetComponent<RectTransform>().localPosition.magnitude > radius)
+        if (rect.localPosition.magnitude > radius)
         {
-            GetComponent<RectTransform>().localPosition = GetComponent<RectTransform>().localPosition.normalized * radius;
+            rect.localPosition = rect.localPosition.normalized * radius;
         }
-        input = GetComponent<RectTransform>().localPosition.normalized;
+        input = rect.localPosition.normalized;
     }
 
     public void SetPos(Vector3 pos)
     {
         this.transform.localPosition = pos;
-        radius = BG.rectTransform.sizeDelta.x / 2f;
 
-        if (GetComponent<RectTransform>().localPosition.magnitude > radius)
+        if (rect.localPosition.magnitude > radius)
         {
-            GetComponent<RectTransform>().localPosition = GetComponent<RectTransform>().localPosition.normalized * radius;
+            rect.localPosition = rect.localPosition.normalized * radius;
         }
-        input = GetComponent<RectTransform>().localPosition.normalized;
+        input = rect.localPosition.normalized;
     }
 }

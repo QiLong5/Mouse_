@@ -52,7 +52,7 @@ CBUFFER_START(UnityPerMaterial)
     float _ShadowSteps;
     float _ShadowSmoothness;
 
-    // Fake Point Lights (8 lights max)
+    // Fake Lights
     float _FakeLight1_Enabled;
     float4 _FakeLight1_Pos;
     float4 _FakeLight1_Color;
@@ -108,7 +108,47 @@ CBUFFER_START(UnityPerMaterial)
     float _FakeLight8_Intensity;
     float _FakeLight8_Range;
     float _FakeLight8_AttenuationPower;
+
+    float _FakeLight9_Enabled;
+    float4 _FakeLight9_Pos;
+    float4 _FakeLight9_Color;
+    float _FakeLight9_Intensity;
+    float _FakeLight9_Range;
+    float _FakeLight9_AttenuationPower;
+
+    float _FakeLight10_Enabled;
+    float4 _FakeLight10_Pos;
+    float4 _FakeLight10_Color;
+    float _FakeLight10_Intensity;
+    float _FakeLight10_Range;
+    float _FakeLight10_AttenuationPower;
+
+    float _FakeLight11_Enabled;
+    float4 _FakeLight11_Pos;
+    float4 _FakeLight11_Color;
+    float _FakeLight11_Intensity;
+    float _FakeLight11_Range;
+    float _FakeLight11_AttenuationPower;
+
+    float _FakeLight12_Enabled;
+    float4 _FakeLight12_Pos;
+    float4 _FakeLight12_Color;
+    float _FakeLight12_Intensity;
+    float _FakeLight12_Range;
+    float _FakeLight12_AttenuationPower;
 CBUFFER_END
+
+// ========== Base Albedo Sampling ==========
+// 统一的基础反照率采样，供 Forward / ShadowCaster / Meta 三个 Pass 共用，
+// 确保各 Pass 的 Alpha 裁剪与可见表面一致。
+// 注意：_USE_CHANNEL_BLEND 及相关通道混合属性目前为占位（主 Pass 从未实现真正的通道混合，
+// 且无任何材质启用该开关），故此处与主 Pass 行为保持一致——直接采样 _BaseMap * _BaseColor。
+// 若日后要启用真正的通道混合，需同时为 Forward/ShadowCaster/Meta 添加相同的通道贴图声明与
+// UnityPerMaterial CBUFFER 字段（保持三 Pass 一致，避免破坏 SRP Batcher）。
+float4 SampleChannelBlendedBase(float2 uv)
+{
+    return SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, uv) * _BaseColor;
+}
 
 // ========== Shared Structures ==========
 struct LitAttributes
@@ -117,6 +157,7 @@ struct LitAttributes
     float3 normalOS : NORMAL;
     float4 tangentOS : TANGENT;
     float2 uv : TEXCOORD0;
+    float4 color : COLOR; // 顶点颜色（用于烘焙光照）
     UNITY_VERTEX_INPUT_INSTANCE_ID
 };
 
@@ -124,9 +165,16 @@ struct LitVaryings
 {
     float4 positionCS : SV_POSITION;
     float2 uv : TEXCOORD0;
-    float3 positionWS : TEXCOORD1;
-    float3 normalWS : TEXCOORD2;
-    float4 tangentWS : TEXCOORD3;
+    // WebGL优化：使用half精度，减少varying数量和精度压力
+    half3 normalWS : TEXCOORD1;
+    #if defined(_USE_NORMAL_MAP)
+        half4 tangentWS : TEXCOORD2; // 仅在需要法线贴图时使用
+    #endif
+    float3 positionWS : TEXCOORD3; // 保持float精度用于阴影和光照计算
+    #if defined(_USE_FAKE_POINT_LIGHT) && defined(_USE_NORMAL_MAP)
+        half3 geometricNormalWS : TEXCOORD4; // 假光源专用几何法线（不受法线贴图影响）
+    #endif
+    half4 vertexColor : COLOR; // 烘焙的顶点颜色光照（始终传递，避免WebGL varying不匹配）
     UNITY_VERTEX_INPUT_INSTANCE_ID
 };
 
@@ -142,17 +190,43 @@ LitVaryings LitVertex(LitAttributes input)
 
     output.positionCS = positionInputs.positionCS;
     output.positionWS = positionInputs.positionWS;
-    output.normalWS = normalInputs.normalWS;
-    output.tangentWS = float4(normalInputs.tangentWS, input.tangentOS.w);
+    output.normalWS = half3(normalInputs.normalWS); // 转换为half精度
+
+    #if defined(_USE_NORMAL_MAP)
+        // 仅在需要法线贴图时计算切线
+        real sign = input.tangentOS.w * GetOddNegativeScale();
+        output.tangentWS = half4(normalInputs.tangentWS, sign);
+    #endif
+
+    #if defined(_USE_FAKE_POINT_LIGHT) && defined(_USE_NORMAL_MAP)
+        // 保存原始几何法线，供假光源使用（不受法线贴图影响）
+        output.geometricNormalWS = half3(normalInputs.normalWS);
+    #endif
+
+    // 始终传递顶点颜色（即使不使用也传递，避免WebGL varying不匹配）
+    output.vertexColor = input.color;
+
     output.uv = input.uv * _MainTiling.xy + _MainTiling.zw;
 
     return output;
 }
 
 // ========== Shared Fragment Function ==========
-half4 LitFragment(LitVaryings input) : SV_Target
+// WebGL兼容性：显式声明fragment shader输出结构
+struct FragmentOutput
+{
+    half4 color : SV_Target0;
+};
+
+FragmentOutput LitFragment(LitVaryings input)
 {
     UNITY_SETUP_INSTANCE_ID(input);
+
+    FragmentOutput output;
+
+    // 【调试禁用】取消下面这行注释可以禁用整个shader，返回红色
+    // output.color = half4(1, 0, 0, 1);
+    // return output;
 
     // Sample textures
     float4 baseMap = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.uv);
@@ -172,29 +246,35 @@ half4 LitFragment(LitVaryings input) : SV_Target
     occlusion = lerp(1.0, occlusion, _OcclusionStrength);
 
     // Normal mapping
-    float3 normalWS = normalize(input.normalWS);
     #ifdef _USE_NORMAL_MAP
-        float3 normalTS = UnpackNormalScale(SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, input.uv), _NormalScale);
-        float3 bitangentWS = cross(input.normalWS, input.tangentWS.xyz) * input.tangentWS.w;
-        float3x3 TBN = float3x3(input.tangentWS.xyz, bitangentWS, input.normalWS);
-        normalWS = normalize(mul(normalTS, TBN));
+        half3 normalTS = UnpackNormalScale(SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, input.uv), _NormalScale);
+
+        // 构建TBN矩阵
+        half sgn = input.tangentWS.w;
+        half3 bitangent = sgn * cross(input.normalWS.xyz, input.tangentWS.xyz);
+        half3x3 tangentToWorld = half3x3(input.tangentWS.xyz, bitangent.xyz, input.normalWS.xyz);
+
+        half3 normalWS = TransformTangentToWorld(normalTS, tangentToWorld);
+        normalWS = NormalizeNormalPerPixel(normalWS);
+    #else
+        half3 normalWS = NormalizeNormalPerPixel(input.normalWS);
     #endif
 
     // Lighting setup
     InputData inputData = (InputData)0;
     inputData.positionWS = input.positionWS;
     inputData.normalWS = normalWS;
-    inputData.viewDirectionWS = normalize(_WorldSpaceCameraPos - input.positionWS);
+    // 使用URP标准的视角方向计算（WebGL优化版本）
+    inputData.viewDirectionWS = GetWorldSpaceNormalizeViewDir(input.positionWS);
     inputData.shadowCoord = TransformWorldToShadowCoord(input.positionWS);
+    // 雾效坐标
+    inputData.fogCoord = InitializeInputDataFog(float4(input.positionWS, 1.0), 0);
 
     // 自定义光照颜色（覆盖场景光照）
     #ifdef _USE_CUSTOM_LIGHTING
-        // 使用自定义光照颜色（覆盖场景光照）
         _MainLightColor.rgb = _CustomLightColor.rgb;
-        // 使用自定义环境光
         inputData.bakedGI = _CustomAmbientColor.rgb;
     #else
-        // 使用场景环境光（球谐函数）
         inputData.bakedGI = SampleSH(normalWS);
     #endif
 
@@ -206,15 +286,14 @@ half4 LitFragment(LitVaryings input) : SV_Target
     surfaceData.normalTS = float3(0, 0, 1);
     surfaceData.occlusion = occlusion;
 
-    // Emission
+    // Emission (WebGL HDR精度优化：使用float避免half精度损失)
     #ifdef _USE_EMISSION
-        float3 emission = SAMPLE_TEXTURE2D(_EmissionMap, sampler_EmissionMap, input.uv).rgb * _EmissionColor.rgb;
-        surfaceData.emission = emission;
+        float3 emissionFloat = SAMPLE_TEXTURE2D(_EmissionMap, sampler_EmissionMap, input.uv).rgb * _EmissionColor.rgb;
+        surfaceData.emission = emissionFloat;
     #else
         surfaceData.emission = 0;
     #endif
 
-    // Calculate PBR lighting
     half4 color = UniversalFragmentPBR(inputData, surfaceData);
 
     // 风格化光照处理（卡通着色）
@@ -239,60 +318,85 @@ half4 LitFragment(LitVaryings input) : SV_Target
         #endif
     #endif
 
-    // Rim Light (边缘光)
+    // Rim Light (边缘光) - WebGL2精度修复版本
     #ifdef _USE_RIM_LIGHT
-        half NdotV = saturate(dot(inputData.normalWS, inputData.viewDirectionWS));
-        half rimMask = 1.0 - NdotV;
-        rimMask = pow(rimMask, _RimPower);
-        half3 rimLight = rimMask * _RimColor.rgb * _RimIntensity;
+        // 使用float精度避免WebGL2中half精度导致pow()计算失真
+        float NdotV_rim = saturate(dot((float3)normalWS, (float3)inputData.viewDirectionWS));
+        float rimMask = saturate(1.0 - NdotV_rim);
+        // 用exp2+log替代pow，在WebGL2上精度更稳定
+        rimMask = exp2(log2(max(rimMask, 1e-6)) * _RimPower);
+        half3 rimLight = half3(rimMask * _RimColor.rgb * _RimIntensity);
         color.rgb += rimLight;
     #endif
 
-    // Fake Point Light (假点光源)
-    #ifdef _USE_FAKE_POINT_LIGHT
+    // 假点光源计算（或使用烘焙的顶点颜色）
+    #if defined(_USE_VERTEX_COLOR)
+        // 使用烘焙的顶点颜色光照（预计算，0开销）
+        half3 bakedLighting = input.vertexColor.rgb;
+        color.rgb += albedo.rgb * bakedLighting;
+    #elif defined(_USE_FAKE_POINT_LIGHT)
+        // 实时计算假点光源（高开销）
+        // 内联的假光源计算函数（避免include导致的编译错误）
         half3 totalFakeLight = half3(0, 0, 0);
 
-        // 定义光源计算函数（使用Unity风格的衰减公式）
+        // 决定使用哪个法线：如果启用了法线贴图，使用几何法线；否则使用当前法线
+        #if defined(_USE_NORMAL_MAP)
+            // 使用几何法线（不受法线贴图影响），确保假光源基于真实几何形状计算
+            half3 fakeLightNormal = normalize(input.geometricNormalWS);
+        #else
+            // 没有法线贴图时，直接使用当前法线
+            half3 fakeLightNormal = normalWS;
+        #endif
+
+        // 光源计算宏
         #define CALCULATE_FAKE_LIGHT(enabled, pos, color, intensity, range, attenPower) \
         if (enabled > 0.5) { \
-            float3 lightPos = pos.xyz; \
-            float3 lightVector = lightPos - input.positionWS; \
+            float3 lightPos = pos; \
+            float3 lightVector = lightPos - inputData.positionWS; \
             float distanceSqr = dot(lightVector, lightVector); \
             float rangeSqr = range * range; \
             \
-            /* Unity风格的衰减计算 */ \
-            /* 1. 距离衰减（物理准确的平方反比，带最小值避免除零） */ \
-            float distanceAttenuation = 1.0 / max(distanceSqr, 0.01 * 0.01); \
-            \
-            /* 2. 范围衰减（平滑衰减到0） */ \
-            float rangeAttenuation = saturate(1.0 - (distanceSqr / rangeSqr)); \
-            rangeAttenuation = pow(rangeAttenuation, attenPower); \
-            \
-            /* 3. 最终衰减 */ \
-            float attenuation = distanceAttenuation * rangeAttenuation; \
-            \
-            if (attenuation > 0.001) { \
-                float3 lightDir = normalize(lightVector); \
-                float NdotL = max(0.0, dot(inputData.normalWS, lightDir)); \
-                totalFakeLight += color.rgb * intensity * NdotL * attenuation; \
+            if (distanceSqr < rangeSqr) { \
+                float distanceAttenuation = 1.0 / max(distanceSqr, 0.01 * 0.01); \
+                float rangeAttenuation = saturate(1.0 - (distanceSqr / rangeSqr)); \
+                rangeAttenuation = pow(rangeAttenuation, attenPower); \
+                float attenuation = distanceAttenuation * rangeAttenuation; \
+                \
+                if (attenuation > 0.001) { \
+                    float3 lightDir = normalize(lightVector); \
+                    float NdotL = max(0.0, dot(fakeLightNormal, lightDir)); \
+                    totalFakeLight += color * intensity * NdotL * attenuation; \
+                } \
             } \
         }
 
-        // 计算所有假点光源
-        CALCULATE_FAKE_LIGHT(_FakeLight1_Enabled, _FakeLight1_Pos, _FakeLight1_Color, _FakeLight1_Intensity, _FakeLight1_Range, _FakeLight1_AttenuationPower)
-        CALCULATE_FAKE_LIGHT(_FakeLight2_Enabled, _FakeLight2_Pos, _FakeLight2_Color, _FakeLight2_Intensity, _FakeLight2_Range, _FakeLight2_AttenuationPower)
-        CALCULATE_FAKE_LIGHT(_FakeLight3_Enabled, _FakeLight3_Pos, _FakeLight3_Color, _FakeLight3_Intensity, _FakeLight3_Range, _FakeLight3_AttenuationPower)
-        CALCULATE_FAKE_LIGHT(_FakeLight4_Enabled, _FakeLight4_Pos, _FakeLight4_Color, _FakeLight4_Intensity, _FakeLight4_Range, _FakeLight4_AttenuationPower)
-        CALCULATE_FAKE_LIGHT(_FakeLight5_Enabled, _FakeLight5_Pos, _FakeLight5_Color, _FakeLight5_Intensity, _FakeLight5_Range, _FakeLight5_AttenuationPower)
-        CALCULATE_FAKE_LIGHT(_FakeLight6_Enabled, _FakeLight6_Pos, _FakeLight6_Color, _FakeLight6_Intensity, _FakeLight6_Range, _FakeLight6_AttenuationPower)
-        CALCULATE_FAKE_LIGHT(_FakeLight7_Enabled, _FakeLight7_Pos, _FakeLight7_Color, _FakeLight7_Intensity, _FakeLight7_Range, _FakeLight7_AttenuationPower)
-        CALCULATE_FAKE_LIGHT(_FakeLight8_Enabled, _FakeLight8_Pos, _FakeLight8_Color, _FakeLight8_Intensity, _FakeLight8_Range, _FakeLight8_AttenuationPower)
+        // 计算所有12个假点光源
+        CALCULATE_FAKE_LIGHT(_FakeLight1_Enabled, _FakeLight1_Pos.xyz, _FakeLight1_Color.rgb, _FakeLight1_Intensity, _FakeLight1_Range, _FakeLight1_AttenuationPower)
+        CALCULATE_FAKE_LIGHT(_FakeLight2_Enabled, _FakeLight2_Pos.xyz, _FakeLight2_Color.rgb, _FakeLight2_Intensity, _FakeLight2_Range, _FakeLight2_AttenuationPower)
+        CALCULATE_FAKE_LIGHT(_FakeLight3_Enabled, _FakeLight3_Pos.xyz, _FakeLight3_Color.rgb, _FakeLight3_Intensity, _FakeLight3_Range, _FakeLight3_AttenuationPower)
+        CALCULATE_FAKE_LIGHT(_FakeLight4_Enabled, _FakeLight4_Pos.xyz, _FakeLight4_Color.rgb, _FakeLight4_Intensity, _FakeLight4_Range, _FakeLight4_AttenuationPower)
+        CALCULATE_FAKE_LIGHT(_FakeLight5_Enabled, _FakeLight5_Pos.xyz, _FakeLight5_Color.rgb, _FakeLight5_Intensity, _FakeLight5_Range, _FakeLight5_AttenuationPower)
+        CALCULATE_FAKE_LIGHT(_FakeLight6_Enabled, _FakeLight6_Pos.xyz, _FakeLight6_Color.rgb, _FakeLight6_Intensity, _FakeLight6_Range, _FakeLight6_AttenuationPower)
+        CALCULATE_FAKE_LIGHT(_FakeLight7_Enabled, _FakeLight7_Pos.xyz, _FakeLight7_Color.rgb, _FakeLight7_Intensity, _FakeLight7_Range, _FakeLight7_AttenuationPower)
+        CALCULATE_FAKE_LIGHT(_FakeLight8_Enabled, _FakeLight8_Pos.xyz, _FakeLight8_Color.rgb, _FakeLight8_Intensity, _FakeLight8_Range, _FakeLight8_AttenuationPower)
+        CALCULATE_FAKE_LIGHT(_FakeLight9_Enabled, _FakeLight9_Pos.xyz, _FakeLight9_Color.rgb, _FakeLight9_Intensity, _FakeLight9_Range, _FakeLight9_AttenuationPower)
+        CALCULATE_FAKE_LIGHT(_FakeLight10_Enabled, _FakeLight10_Pos.xyz, _FakeLight10_Color.rgb, _FakeLight10_Intensity, _FakeLight10_Range, _FakeLight10_AttenuationPower)
+        CALCULATE_FAKE_LIGHT(_FakeLight11_Enabled, _FakeLight11_Pos.xyz, _FakeLight11_Color.rgb, _FakeLight11_Intensity, _FakeLight11_Range, _FakeLight11_AttenuationPower)
+        CALCULATE_FAKE_LIGHT(_FakeLight12_Enabled, _FakeLight12_Pos.xyz, _FakeLight12_Color.rgb, _FakeLight12_Intensity, _FakeLight12_Range, _FakeLight12_AttenuationPower)
 
-        // 将假点光源添加到最终颜色（乘以albedo实现正确的光照效果）
+        #undef CALCULATE_FAKE_LIGHT
+
+        // 叠加假光源贡献
         color.rgb += albedo.rgb * totalFakeLight;
     #endif
 
-    return color;
+    // 应用雾效（Fog）
+    color.rgb = MixFog(color.rgb, inputData.fogCoord);
+
+    // 预乘alpha输出：兼容WebGL canvas premultipliedAlpha:true的合成行为
+    // Blend模式为 One/OneMinusSrcAlpha，RGB需要提前乘以alpha
+    output.color = half4(color.rgb * albedo.a, albedo.a);
+    return output;
 }
 
 #endif // CUSTOM_URP_LIT_COMMON_INCLUDED
