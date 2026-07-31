@@ -6,12 +6,11 @@ using System.Collections.Generic;
 public enum SK
 {
     BGM,
-    结算BGM,
     投金币,
     收金币,
     物品,
     丢入锅,
-    老鼠叠高高,
+    瓶子,
     警告_缺金币,
     警告_满,
     治疗,
@@ -21,8 +20,9 @@ public enum SK
     图标出现,
     启动按钮,
     结算页面弹出,
-    割草,
-    吸尘器,
+    结算BGM,
+    锤子,
+    老鼠叠高高,
     老鼠叫,
 }
 
@@ -31,12 +31,11 @@ public static class SKMap
     public static readonly Dictionary<SK, string> Keys = new Dictionary<SK, string>
     {
         { SK.BGM, "BGM" },
-        { SK.结算BGM, "结算BGM" },
         { SK.投金币, "投金币" },
         { SK.收金币, "收金币" },
         { SK.物品, "物品" },
         { SK.丢入锅, "丢入锅" },
-        { SK.老鼠叠高高, "老鼠叠高高" },
+        { SK.瓶子, "瓶子" },
         { SK.警告_缺金币, "警告-缺金币" },
         { SK.警告_满, "警告-满" },
         { SK.治疗, "治疗" },
@@ -46,8 +45,9 @@ public static class SKMap
         { SK.图标出现, "图标出现" },
         { SK.启动按钮, "启动按钮" },
         { SK.结算页面弹出, "结算页面弹出" },
-        { SK.割草, "割草" },
-        { SK.吸尘器, "吸尘器" },
+        { SK.结算BGM, "结算BGM" },
+        { SK.锤子, "锤子" },
+        { SK.老鼠叠高高, "老鼠叠高高" },
         { SK.老鼠叫, "老鼠叫" },
     };
 }

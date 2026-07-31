@@ -726,7 +726,7 @@ MonoBehaviour:
     - _ENABLEFADE_ON
   _includedShaderVariants: []
   _excludedShaderVariants: []
-  version: 59
+  version: 62
   _shaderParsedShaders:
   - ParsedSubShaders:
     - Index: 0
