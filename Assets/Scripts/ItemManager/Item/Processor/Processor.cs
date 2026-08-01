@@ -119,7 +119,7 @@ public class Processor : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            //ispprocess = true;
+            ispprocess = true;
         }
        
     }
@@ -127,7 +127,7 @@ public class Processor : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //ispprocess = true;
+            ispprocess = true;
         }
            
     }
@@ -136,7 +136,7 @@ public class Processor : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //ispprocess = false;
+            ispprocess = false;
         }
        
     }
