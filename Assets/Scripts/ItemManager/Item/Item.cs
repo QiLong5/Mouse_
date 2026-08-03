@@ -38,8 +38,10 @@ public class Item : MonoBehaviour
 
     public bool hasBeenAddedToPlayer { get; set; } = false;
 
-    //决定物品是否可以移动  
+    //决定物品是否可以移动
     public bool canDoFurtherMove { get; set; } = true;
+
+    private Coroutine _moveCoroutine;
 
 
     private void Awake()
@@ -94,13 +96,21 @@ public class Item : MonoBehaviour
     //控制物品移动的函数，默认是本地空间，下面重载了多个版本，还另外写了一个世界空间的版本
     public void MoveAlongCurve( Vector3 _startPosition, Vector3 _endPosition)
     {
-        StopAllCoroutines();
-        StartCoroutine(MoveAlongCurve_Coroutine(_startPosition, _endPosition));
+        if (_moveCoroutine != null)
+        {
+            StopCoroutine(_moveCoroutine);
+            canDoFurtherMove = true;
+        }
+        _moveCoroutine = StartCoroutine(MoveAlongCurve_Coroutine(_startPosition, _endPosition));
     }
     public void MoveAlongCurve(Vector3 _startPosition, Vector3 _endPosition, Action action)
     {
-        StopAllCoroutines();
-        StartCoroutine(MoveAlongCurve_Coroutine(_startPosition, _endPosition, action));
+        if (_moveCoroutine != null)
+        {
+            StopCoroutine(_moveCoroutine);
+            canDoFurtherMove = true;
+        }
+        _moveCoroutine = StartCoroutine(MoveAlongCurve_Coroutine(_startPosition, _endPosition, action));
     }
     private IEnumerator MoveAlongCurve_Coroutine(Vector3 _startPosition, Vector3 _endPosition)
     {
@@ -147,6 +157,7 @@ public class Item : MonoBehaviour
         ScaleFX();
 
         yield return null;
+        _moveCoroutine = null;
         canDoFurtherMove = true;
 
     }
@@ -195,6 +206,7 @@ public class Item : MonoBehaviour
         ScaleFX();
         action?.Invoke();
         yield return null;
+        _moveCoroutine = null;
         canDoFurtherMove = true;
 
     }
