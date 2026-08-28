@@ -7291,6 +7291,23 @@ PrefabInstance:
       propertyPath: completeAction.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5633469507907736403, guid: 09d0e07f3f5d97b4c86b3d692a5decc5,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 00803dc2c5d6196468070d2a54cfc39f,
+        type: 2}
+    - target: {fileID: 5633469507907736403, guid: 09d0e07f3f5d97b4c86b3d692a5decc5,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -3367846323350387296, guid: 00803dc2c5d6196468070d2a54cfc39f,
+        type: 2}
+    - target: {fileID: 5633469507907736403, guid: 09d0e07f3f5d97b4c86b3d692a5decc5,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5643806964279602841, guid: 09d0e07f3f5d97b4c86b3d692a5decc5,
         type: 3}
       propertyPath: m_AnchorMax.y

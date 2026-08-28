@@ -128,7 +128,10 @@
                 "Stubs/AppsFlyer",
                 "Stubs/IronSource",
                 "Stubs/Vungle",
-                "Stubs/MoreMountains.NiceVibrations"
+                "Stubs/MoreMountains.NiceVibrations",
+                "Assets/Font/NotoSansKR-Medium SDF.asset",
+                "Assets/Font/MiSansThai-Medium SDF.asset",
+                "Assets/TextMesh Pro/Sprites/EmojiOne.png"
             ],
             "includes": [
                 "Assets/Resources/DOTweenSettings.asset",
@@ -33610,6 +33613,516 @@
                         "script": "",
                         "ext": "",
                         "name": "Resources/unity_builtin_extra/Default-Particle"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "png32",
+                        "compression": "none",
+                        "quality": 65,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/Font/MiSansThai-Medium SDF.asset"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "png32",
+                        "compression": "none",
+                        "quality": 65,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/Font/NotoSansKR-Medium SDF.asset"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "png32",
+                        "compression": "none",
+                        "quality": 65,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/Font/MiSans-Medium SDF.asset"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "png32",
+                        "compression": "none",
+                        "quality": 65,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "png32",
+                        "compression": "none",
+                        "quality": 65,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/胜利/shengli.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/Texture/3DYinDaoBaoShi_c.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/Google/遥感-底部.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/针筒-发光.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/Scenes/SampleScene.unity/PrefilteredEnvironment.exr"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/Logo.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/针筒.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/肌肉臂.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/手指.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/Guide1.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/UI/dragtomove/日语.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/救治.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/Language/了解更多 日.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/button2.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/UI/dragtomove/英语.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/UI/dragtomove/韩语.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/男病人数量框.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/微笑.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/Language/立即游玩 英.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/UI/dragtomove/俄语.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/MAX.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/Language/了解更多 俄.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/草药图标-紫.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/Google/遥感方向指示.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/Language/了解更多 英.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/Language/了解更多 韩.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/Language/立即游玩 俄.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/Language/立即游玩 日.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/摇杆底图.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/Google/遥感-中部拖拽.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/Language/立即游玩 韩.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/摇杆.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/Button.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/Texture/引导圆点.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/Bottom.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/Texture/未标题-4(1).png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/pic_zs_jhd2.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Resources/unity_builtin_extra/Knob"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/UI/血条底.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/进度条-底.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Resources/unity_builtin_extra/InputFieldBackground"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/UI/血条.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/血条.png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Resources/unity_builtin_extra/Background"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/UI/icon_zs_zhiliao(1).png"
+                    },
+                    {
+                        "maxWidth": 512,
+                        "maxHeight": 512,
+                        "format": "webp",
+                        "compression": "quantSize",
+                        "quality": 50,
+                        "script": "",
+                        "ext": "",
+                        "name": "Resources/unity_builtin_extra/UIMask"
                     }
                 ]
             },
@@ -33623,7 +34136,188 @@
                     "script": "",
                     "ext": ""
                 },
-                "overrides": []
+                "overrides": [
+                    {
+                        "channels": 1,
+                        "startTime": "00:00.000",
+                        "endTime": "00:30.000",
+                        "lengthInSeconds": 30.0,
+                        "bitrate": 32,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/Audio/老鼠榨汁/循环30.mp3"
+                    },
+                    {
+                        "channels": 1,
+                        "startTime": "00:00.000",
+                        "endTime": "00:00.000",
+                        "lengthInSeconds": 0.0,
+                        "bitrate": 32,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/Audio/老鼠榨汁/结算bgm.wav"
+                    },
+                    {
+                        "channels": 1,
+                        "startTime": "00:00.000",
+                        "endTime": "00:30.000",
+                        "lengthInSeconds": 30.0,
+                        "bitrate": 32,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/Audio/老鼠榨汁/投金币1.mp3"
+                    },
+                    {
+                        "channels": 1,
+                        "startTime": "00:00.000",
+                        "endTime": "00:00.000",
+                        "lengthInSeconds": 0.0,
+                        "bitrate": 32,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/Audio/老鼠榨汁/电钻老鼠飙血.mp3"
+                    },
+                    {
+                        "channels": 1,
+                        "startTime": "00:00.000",
+                        "endTime": "00:00.000",
+                        "lengthInSeconds": 0.0,
+                        "bitrate": 32,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/Audio/老鼠榨汁/结算界面弹出.mp3"
+                    },
+                    {
+                        "channels": 1,
+                        "startTime": "00:00.000",
+                        "endTime": "00:00.000",
+                        "lengthInSeconds": 0.0,
+                        "bitrate": 32,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/Audio/老鼠榨汁/少金币警告.mp3"
+                    },
+                    {
+                        "channels": 1,
+                        "startTime": "00:00.000",
+                        "endTime": "00:00.000",
+                        "lengthInSeconds": 0.0,
+                        "bitrate": 32,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/Audio/老鼠榨汁/解锁建筑 1.MP3"
+                    },
+                    {
+                        "channels": 1,
+                        "startTime": "00:00.000",
+                        "endTime": "00:00.000",
+                        "lengthInSeconds": 0.0,
+                        "bitrate": 32,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/Audio/老鼠榨汁/放入锅.mp3"
+                    },
+                    {
+                        "channels": 1,
+                        "startTime": "00:00.000",
+                        "endTime": "00:00.000",
+                        "lengthInSeconds": 0.0,
+                        "bitrate": 32,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/Audio/老鼠榨汁/解锁售货员和工人和升级.mp3"
+                    },
+                    {
+                        "channels": 1,
+                        "startTime": "00:00.000",
+                        "endTime": "00:00.000",
+                        "lengthInSeconds": 0.0,
+                        "bitrate": 32,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/Audio/老鼠榨汁/治疗-小完成.mp3"
+                    },
+                    {
+                        "channels": 1,
+                        "startTime": "00:00.000",
+                        "endTime": "00:00.000",
+                        "lengthInSeconds": 0.0,
+                        "bitrate": 32,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/Audio/老鼠榨汁/治疗-过程转圈.mp3"
+                    },
+                    {
+                        "channels": 1,
+                        "startTime": "00:00.000",
+                        "endTime": "00:00.000",
+                        "lengthInSeconds": 0.0,
+                        "bitrate": 32,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/Audio/老鼠榨汁/老鼠叫.mp3"
+                    },
+                    {
+                        "channels": 1,
+                        "startTime": "00:00.000",
+                        "endTime": "00:00.000",
+                        "lengthInSeconds": 0.0,
+                        "bitrate": 32,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/Audio/老鼠榨汁/拿满警告.mp3"
+                    },
+                    {
+                        "channels": 1,
+                        "startTime": "00:00.000",
+                        "endTime": "00:00.000",
+                        "lengthInSeconds": 0.0,
+                        "bitrate": 32,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/Audio/老鼠榨汁/图标弹出来.mp3"
+                    },
+                    {
+                        "channels": 1,
+                        "startTime": "00:00.000",
+                        "endTime": "00:00.000",
+                        "lengthInSeconds": 0.0,
+                        "bitrate": 32,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/Audio/老鼠榨汁/收金币和顾客给的金币叠高高.mp3"
+                    },
+                    {
+                        "channels": 1,
+                        "startTime": "00:00.000",
+                        "endTime": "00:00.000",
+                        "lengthInSeconds": 0.0,
+                        "bitrate": 32,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/Audio/老鼠榨汁/收瓶子和投瓶子.mp3"
+                    },
+                    {
+                        "channels": 1,
+                        "startTime": "00:00.000",
+                        "endTime": "00:00.000",
+                        "lengthInSeconds": 0.0,
+                        "bitrate": 32,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/Audio/老鼠榨汁/老鼠叠高高.mp3"
+                    },
+                    {
+                        "channels": 1,
+                        "startTime": "00:00.000",
+                        "endTime": "00:00.000",
+                        "lengthInSeconds": 0.0,
+                        "bitrate": 32,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/ART/Audio/老鼠榨汁/启动按钮.mp3"
+                    }
+                ]
             },
             "font": {
                 "default": {
