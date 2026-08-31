@@ -1,0 +1,17 @@
+#!/bin/sh
+# 禁止 LunaTemp/ 下的任何文件进入提交。
+# .gitignore 已忽略该目录，此钩子额外拦截 `git add -f` 强制暂存的情况。
+
+staged=$(git diff --cached --name-only --diff-filter=ACMR | grep -i '^LunaTemp/')
+
+if [ -n "$staged" ]; then
+	echo "提交被拒绝：LunaTemp/ 是 Luna 构建临时目录，不允许提交。" >&2
+	echo "" >&2
+	echo "以下文件已被暂存：" >&2
+	echo "$staged" | sed 's/^/  - /' >&2
+	echo "" >&2
+	echo "请先取消暂存：git restore --staged LunaTemp" >&2
+	exit 1
+fi
+
+exit 0
