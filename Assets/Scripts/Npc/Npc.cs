@@ -16,11 +16,23 @@ public class Npc : MonoBehaviour
     public Animator mAnimator;
     public AnimatorStateInfo mStateInfo;
     public Collider mCollider;
-    public Rigidbody mRigidbody;
 
     public float mMoveSpeed;
     public float mTurnSmoothTime = 0.1f;
     float mTurnSmoothVelocity;
+
+    protected virtual void Awake()
+    {
+        // 移动改为直接位移 transform，若预制体上还残留 Rigidbody，
+        // 把它设为运动学并关闭重力，避免物理与位移互相干扰产生抖动
+        if (TryGetComponent(out Rigidbody rb))
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.useGravity = false;
+            rb.isKinematic = true;
+        }
+    }
 
     // 停止移动
     public virtual void StopMovement()
@@ -30,8 +42,6 @@ public class Npc : MonoBehaviour
             StopCoroutine(moveToTargerIE);
             moveToTargerIE = null;
         }
-        mRigidbody.velocity = Vector3.zero;
-
     }
 
     /// <summary>
@@ -86,29 +96,7 @@ public class Npc : MonoBehaviour
                 }
 
             }
-            // 计算目标方向
-            Vector3 dir = (target.position - transform.position).normalized;
-
-            // 计算目标角度（绕 Y 轴）
-            float targetAngle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
-
-            // 平滑旋转到目标角度
-            float angle = Mathf.SmoothDampAngle(
-                transform.eulerAngles.y,
-                targetAngle,
-                ref mTurnSmoothVelocity,
-                mTurnSmoothTime
-            );
-
-            // 设置旋转
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-            // 设置移动速度（保持 Y 方向速度不变）
-            mRigidbody.velocity = new Vector3(
-                (transform.forward * mMoveSpeed).x,
-                mRigidbody.velocity.y,
-                (transform.forward * mMoveSpeed).z
-            );
+            MoveStep(target.position);
             yield return null;
         }
 
@@ -124,29 +112,7 @@ public class Npc : MonoBehaviour
 
         while (Vector3.Distance(target, transform.position) > 0.3f)
         {
-            // 计算目标方向
-            Vector3 dir = (target - transform.position).normalized;
-
-            // 计算目标角度（绕 Y 轴）
-            float targetAngle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
-
-            // 平滑旋转到目标角度
-            float angle = Mathf.SmoothDampAngle(
-                transform.eulerAngles.y,
-                targetAngle,
-                ref mTurnSmoothVelocity,
-                mTurnSmoothTime
-            );
-
-            // 设置旋转
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-            // 设置移动速度（保持 Y 方向速度不变）
-            mRigidbody.velocity = new Vector3(
-                (transform.forward * mMoveSpeed).x,
-                mRigidbody.velocity.y,
-                (transform.forward * mMoveSpeed).z
-            );
+            MoveStep(target);
             yield return null;
         }
         targetAciton?.Invoke();
@@ -157,32 +123,37 @@ public class Npc : MonoBehaviour
 
         while (Vector3.Distance(target.position, transform.position) > 0.3f)
         {
-            // 计算目标方向
-            Vector3 dir = (target.position - transform.position).normalized;
-
-            // 计算目标角度（绕 Y 轴）
-            float targetAngle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
-
-            // 平滑旋转到目标角度
-            float angle = Mathf.SmoothDampAngle(
-                transform.eulerAngles.y,
-                targetAngle,
-                ref mTurnSmoothVelocity,
-                mTurnSmoothTime
-            );
-
-            // 设置旋转
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-            // 设置移动速度（保持 Y 方向速度不变）
-            mRigidbody.velocity = new Vector3(
-                (transform.forward * mMoveSpeed).x,
-                mRigidbody.velocity.y,
-                (transform.forward * mMoveSpeed).z
-            );
+            MoveStep(target.position);
             yield return null;
         }
         targetAciton?.Invoke();
 
+    }
+
+    /// <summary>
+    /// 单帧移动：朝目标平滑转向，并直接位移 transform（不依赖 Rigidbody）
+    /// </summary>
+    /// <param name="target">目标位置</param>
+    protected void MoveStep(Vector3 target)
+    {
+        // 计算目标方向
+        Vector3 dir = (target - transform.position).normalized;
+
+        // 计算目标角度（绕 Y 轴）
+        float targetAngle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
+
+        // 平滑旋转到目标角度
+        float angle = Mathf.SmoothDampAngle(
+            transform.eulerAngles.y,
+            targetAngle,
+            ref mTurnSmoothVelocity,
+            mTurnSmoothTime
+        );
+
+        // 设置旋转
+        transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+        // 直接位移（保持 Y 轴高度不变）
+        transform.position += transform.forward * mMoveSpeed * Time.deltaTime;
     }
 }

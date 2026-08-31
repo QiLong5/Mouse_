@@ -212,7 +212,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4035114625203829170}
-  - component: {fileID: 4865961763012047913}
   - component: {fileID: 979879039185313443}
   - component: {fileID: 2049261713984526640}
   m_Layer: 0
@@ -238,33 +237,6 @@ Transform:
   - {fileID: 3547053253261928362}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &4865961763012047913
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7937974097538887551}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 5
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 116
-  m_CollisionDetection: 0
 --- !u!136 &979879039185313443
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -300,8 +272,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67f176ad27e4f03498d040681f5aaafc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  npcType: 0
   mAnimator: {fileID: 1439396756480544023}
   mCollider: {fileID: 979879039185313443}
-  mRigidbody: {fileID: 4865961763012047913}
   mMoveSpeed: 8
   mTurnSmoothTime: 0.1

@@ -313,7 +313,7 @@ public class MercenaryNpc : Npc
             yield return waitFrame;
         }
 
-        mRigidbody.velocity = Vector3.zero;
+        StopMovement();
     }
 
     /// <summary>

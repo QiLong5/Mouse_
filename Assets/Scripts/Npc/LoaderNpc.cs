@@ -101,7 +101,7 @@ public class LoaderNpc : Npc
         {
             yield return waitFrame;
         }
-        mRigidbody.velocity = Vector3.zero;
+        StopMovement();
     }
 
     public void StartWork()

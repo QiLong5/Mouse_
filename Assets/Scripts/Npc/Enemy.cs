@@ -210,10 +210,15 @@ public class Enemy : Npc
         {
             StopCoroutine(knockbackIE);
         }
+        if (knockbackMoveIE != null)
+        {
+            StopCoroutine(knockbackMoveIE);
+        }
         knockbackIE=KnockbackIE(playerPosition);
         StartCoroutine(knockbackIE);
     }
 
+    IEnumerator knockbackMoveIE;
     IEnumerator knockbackIE;
    /// <summary>
    /// 受击协程
@@ -228,7 +233,7 @@ public class Enemy : Npc
         direction = direction.normalized;
         var enemyOriMat=mAnimator.GetComponent<MeshRenderer>().materials;
         mAnimator.GetComponent<MeshRenderer>().material=GameDataEditor.instance.enemyHurtMat;
-        GetComponent<Rigidbody>().AddForce(direction * GameDataEditor.instance.enemyKnockbackForc, ForceMode.Impulse);
+        StartCoroutine(knockbackMoveIE = KnockbackMoveIE(direction));
         mCollider.enabled=false;
         yield return new WaitForSeconds(0.3f);
         mAnimator.GetComponent<MeshRenderer>().materials= enemyOriMat;
@@ -262,6 +267,35 @@ public class Enemy : Npc
        
     }
 
+    /// <summary>
+    /// 击退位移协程（不使用物理，直接位移 transform，速度随时间衰减）
+    /// </summary>
+    /// <param name="direction">击退方向（水平面，已归一化）</param>
+    IEnumerator KnockbackMoveIE(Vector3 direction)
+    {
+        float duration = 0.25f;
+        // 用击退力度换算击退距离，保持原有手感的可调性
+        float distance = GameDataEditor.instance.enemyKnockbackForc * 0.15f;
+        float elapsed = 0f;
+        float moved = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            // 缓出曲线，开始快、结束慢
+            float target = distance * (1f - (1f - t) * (1f - t));
+            Vector3 newPos = transform.position + direction * (target - moved);
+            // 限制在漫游区域内，避免被击退出场景
+            newPos.x = Mathf.Clamp(newPos.x, GameDataEditor.instance.patrolAreaMin.position.x, GameDataEditor.instance.patrolAreaMax.position.x);
+            newPos.z = Mathf.Clamp(newPos.z, GameDataEditor.instance.patrolAreaMin.position.z, GameDataEditor.instance.patrolAreaMax.position.z);
+            newPos.y = transform.position.y;
+            transform.position = newPos;
+            moved = target;
+            yield return null;
+        }
+    }
+
     IEnumerator patrolIE;
 
     /// <summary>
@@ -281,7 +315,6 @@ public class Enemy : Npc
                 StopCoroutine(moveToTargerIE);
                 moveToTargerIE = null;
             }
-            mRigidbody.velocity = Vector3.zero;
             yield return new WaitForSeconds(Random.Range(1f, 2f));
             if (!mStateInfo.IsName("Run"))
             {
@@ -294,7 +327,6 @@ public class Enemy : Npc
                     StopCoroutine(moveToTargerIE);
                     moveToTargerIE = null;
                 }
-                mRigidbody.velocity = Vector3.zero;
                 if (!mStateInfo.IsName("Idle"))
                 {
                     mAnimator.Play("Idle");
