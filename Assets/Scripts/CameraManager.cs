@@ -35,6 +35,11 @@ public class CameraManager : MonoSingleton<CameraManager>
 
     Vector3 mOffset;
 
+    [Header("移动跟随平滑")]
+    [SerializeField, Min(0f)]
+    private float followSmoothTime = 0.08f;
+    private Vector3 followVelocity;
+
 
     [Header("相机引导")]
     [SerializeField]
@@ -103,15 +108,31 @@ public class CameraManager : MonoSingleton<CameraManager>
 
     private void LateUpdate()
     {
-        if (!LunaManager.instance.isGameOver && !isForcedLook)
+        if (!LunaManager.instance.isGameOver && !isForcedLook && Time.deltaTime > 0f)
         {
-            if (transform.position != Player.instance.transform.position + mOffset)
+            Vector3 targetPosition = Player.instance.transform.position + mOffset;
+            if (followSmoothTime <= 0f)
             {
-                transform.position = Player.instance.transform.position + mOffset;
-               
+                followVelocity = Vector3.zero;
+                transform.position = targetPosition;
+            }
+            else
+            {
+                transform.position = Vector3.SmoothDamp(
+                    transform.position, targetPosition, ref followVelocity,
+                    followSmoothTime, Mathf.Infinity, Time.deltaTime);
             }
         }
+        else
+        {
+            followVelocity = Vector3.zero;
+        }
         CameraMoveAction?.Invoke();
+    }
+
+    private void OnDisable()
+    {
+        followVelocity = Vector3.zero;
     }
 
     /// <summary>
@@ -122,6 +143,7 @@ public class CameraManager : MonoSingleton<CameraManager>
     {
         if (!isForcedLook)
         {
+            followVelocity = Vector3.zero;
             isForcedLook = true;
             oripos = transform.position;
             StartCoroutine(ForceLookIE(forceCameras[index]));
@@ -134,6 +156,7 @@ public class CameraManager : MonoSingleton<CameraManager>
         yield return new WaitForSeconds(switchTimer+stayTimer);
         transform.DOMove(oripos, switchTimer).SetEase(Ease.Linear);
         yield return new WaitForSeconds(switchTimer);
+        followVelocity = Vector3.zero;
         isForcedLook = false;
     }
 

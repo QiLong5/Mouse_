@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using DG.Tweening;
@@ -32,6 +31,13 @@ public enum HideEffectType
     Shrink          // 收缩消失
 }
 
+/// <summary>
+/// 物体出现/消失动效。
+/// 全部动效由 DOTween 驱动 Transform 完成,不会访问 Renderer.material,
+/// 因此不会克隆材质实例,不会破坏合批。
+/// Fade / FadeScale:物体上有 CanvasGroup 时用 CanvasGroup 做真实透明度(同样不产生材质),
+/// 否则用等价的缩放动画替代。
+/// </summary>
 public class ObjectFX : MonoBehaviour
 {
     [Header("动效类型选择")]
@@ -58,25 +64,19 @@ public class ObjectFX : MonoBehaviour
     [Tooltip("消失动效完成时触发")]
     public UnityEvent onHideComplete;
 
+    /// <summary>没有 CanvasGroup 时,用于替代淡入淡出的起始缩放比例</summary>
+    private const float FadeSubstituteScaleRatio = 0.75f;
+
     private Vector3 originalScale;
     private Vector3 originalPosition;
-    private Renderer[] renderers;
-    private readonly Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>();
+    private CanvasGroup canvasGroup;
 
     private void Awake()
     {
         originalScale = transform.localScale;
         originalPosition = transform.localPosition;
-        renderers = GetComponentsInChildren<Renderer>();
-
-        // 保存原始颜色
-        foreach (var renderer in renderers)
-        {
-            if (renderer.material.HasProperty("_Color"))
-            {
-                originalColors[renderer] = renderer.material.color;
-            }
-        }
+        // 只取自身的 CanvasGroup:有则做真实透明度,没有就用缩放替代,全程不碰材质
+        canvasGroup = GetComponent<CanvasGroup>();
     }
 
     private void OnEnable()
@@ -141,7 +141,7 @@ public class ObjectFX : MonoBehaviour
         {
             Hide(null);
         }
-      
+
     }
 
     /// <summary>
@@ -188,9 +188,11 @@ public class ObjectFX : MonoBehaviour
     /// </summary>
     public void ShowByScale(Action onComplete = null)
     {
+        KillTweens();
         transform.localScale = Vector3.zero;
         transform.DOScale(originalScale, duration)
             .SetEase(easeType)
+            .SetTarget(this)
             .OnComplete(() => onComplete?.Invoke());
     }
 
@@ -199,9 +201,11 @@ public class ObjectFX : MonoBehaviour
     /// </summary>
     public void ShowByBounce(Action onComplete = null)
     {
+        KillTweens();
         transform.localScale = Vector3.zero;
         transform.DOScale(originalScale, duration)
             .SetEase(Ease.OutBounce)
+            .SetTarget(this)
             .OnComplete(() => onComplete?.Invoke());
     }
 
@@ -210,10 +214,12 @@ public class ObjectFX : MonoBehaviour
     /// </summary>
     public void ShowByDropDown(float dropHeight = 5f, Action onComplete = null)
     {
+        KillTweens();
         Vector3 startPos = originalPosition + Vector3.up * dropHeight;
         transform.localPosition = startPos;
         transform.DOLocalMove(originalPosition, duration)
             .SetEase(Ease.OutBounce)
+            .SetTarget(this)
             .OnComplete(() => onComplete?.Invoke());
     }
 
@@ -222,21 +228,37 @@ public class ObjectFX : MonoBehaviour
     /// </summary>
     public void ShowByRiseUp(float riseHeight = 5f, Action onComplete = null)
     {
+        KillTweens();
         Vector3 startPos = originalPosition + Vector3.down * riseHeight;
         transform.localPosition = startPos;
         transform.DOLocalMove(originalPosition, duration)
             .SetEase(easeType)
+            .SetTarget(this)
             .OnComplete(() => onComplete?.Invoke());
     }
 
     /// <summary>
     /// 淡入出现
+    /// 有 CanvasGroup 时用透明度,否则用缩放(0.75 -> 1)等价替代
     /// </summary>
     public void ShowByFade(Action onComplete = null)
     {
-        SetAlpha(0f);
-        DOTween.To(() => 0f, x => SetAlpha(x), 1f, duration)
+        KillTweens();
+
+        if (canvasGroup != null)
+        {
+            canvasGroup.alpha = 0f;
+            canvasGroup.DOFade(1f, duration)
+                .SetEase(easeType)
+                .SetTarget(this)
+                .OnComplete(() => onComplete?.Invoke());
+            return;
+        }
+
+        transform.localScale = originalScale * FadeSubstituteScaleRatio;
+        transform.DOScale(originalScale, duration)
             .SetEase(easeType)
+            .SetTarget(this)
             .OnComplete(() => onComplete?.Invoke());
     }
 
@@ -245,12 +267,19 @@ public class ObjectFX : MonoBehaviour
     /// </summary>
     public void ShowByFadeScale(Action onComplete = null)
     {
-        transform.localScale = originalScale * 0.5f;
-        SetAlpha(0f);
+        KillTweens();
 
-        transform.DOScale(originalScale, duration).SetEase(easeType);
-        DOTween.To(() => 0f, x => SetAlpha(x), 1f, duration)
+        transform.localScale = originalScale * 0.5f;
+
+        if (canvasGroup != null)
+        {
+            canvasGroup.alpha = 0f;
+            canvasGroup.DOFade(1f, duration).SetEase(easeType).SetTarget(this);
+        }
+
+        transform.DOScale(originalScale, duration)
             .SetEase(easeType)
+            .SetTarget(this)
             .OnComplete(() => onComplete?.Invoke());
     }
 
@@ -259,12 +288,14 @@ public class ObjectFX : MonoBehaviour
     /// </summary>
     public void ShowByRotate(Action onComplete = null)
     {
+        KillTweens();
         transform.localScale = Vector3.zero;
         transform.localRotation = Quaternion.Euler(0, 180, 0);
 
-        transform.DOScale(originalScale, duration).SetEase(easeType);
+        transform.DOScale(originalScale, duration).SetEase(easeType).SetTarget(this);
         transform.DOLocalRotate(Vector3.zero, duration)
             .SetEase(easeType)
+            .SetTarget(this)
             .OnComplete(() => onComplete?.Invoke());
     }
 
@@ -277,8 +308,10 @@ public class ObjectFX : MonoBehaviour
     /// </summary>
     public void HideByScale(Action onComplete = null)
     {
+        KillTweens();
         transform.DOScale(Vector3.zero, duration)
             .SetEase(easeType)
+            .SetTarget(this)
             .OnComplete(() =>
             {
                 onComplete?.Invoke();
@@ -291,9 +324,11 @@ public class ObjectFX : MonoBehaviour
     /// </summary>
     public void HideByFlyUp(float flyHeight = 5f, Action onComplete = null)
     {
+        KillTweens();
         Vector3 targetPos = transform.localPosition + Vector3.up * flyHeight;
         transform.DOLocalMove(targetPos, duration)
             .SetEase(Ease.InQuad)
+            .SetTarget(this)
             .OnComplete(() =>
             {
                 transform.localPosition = originalPosition;
@@ -307,9 +342,11 @@ public class ObjectFX : MonoBehaviour
     /// </summary>
     public void HideBySinkDown(float sinkHeight = 5f, Action onComplete = null)
     {
+        KillTweens();
         Vector3 targetPos = transform.localPosition + Vector3.down * sinkHeight;
         transform.DOLocalMove(targetPos, duration)
             .SetEase(Ease.InQuad)
+            .SetTarget(this)
             .OnComplete(() =>
             {
                 transform.localPosition = originalPosition;
@@ -320,14 +357,32 @@ public class ObjectFX : MonoBehaviour
 
     /// <summary>
     /// 淡出消失
+    /// 有 CanvasGroup 时用透明度,否则用缩放(1 -> 0)等价替代
     /// </summary>
     public void HideByFade(Action onComplete = null)
     {
-        DOTween.To(() => 1f, x => SetAlpha(x), 0f, duration)
+        KillTweens();
+
+        if (canvasGroup != null)
+        {
+            canvasGroup.DOFade(0f, duration)
+                .SetEase(easeType)
+                .SetTarget(this)
+                .OnComplete(() =>
+                {
+                    canvasGroup.alpha = 1f;
+                    onComplete?.Invoke();
+                    gameObject.SetActive(false);
+                });
+            return;
+        }
+
+        transform.DOScale(Vector3.zero, duration)
             .SetEase(easeType)
+            .SetTarget(this)
             .OnComplete(() =>
             {
-                SetAlpha(1f);
+                transform.localScale = originalScale;
                 onComplete?.Invoke();
                 gameObject.SetActive(false);
             });
@@ -338,13 +393,30 @@ public class ObjectFX : MonoBehaviour
     /// </summary>
     public void HideByFadeScale(Action onComplete = null)
     {
-        transform.DOScale(originalScale * 0.5f, duration).SetEase(easeType);
-        DOTween.To(() => 1f, x => SetAlpha(x), 0f, duration)
+        KillTweens();
+
+        if (canvasGroup != null)
+        {
+            transform.DOScale(originalScale * 0.5f, duration).SetEase(easeType).SetTarget(this);
+            canvasGroup.DOFade(0f, duration)
+                .SetEase(easeType)
+                .SetTarget(this)
+                .OnComplete(() =>
+                {
+                    transform.localScale = originalScale;
+                    canvasGroup.alpha = 1f;
+                    onComplete?.Invoke();
+                    gameObject.SetActive(false);
+                });
+            return;
+        }
+
+        transform.DOScale(Vector3.zero, duration)
             .SetEase(easeType)
+            .SetTarget(this)
             .OnComplete(() =>
             {
                 transform.localScale = originalScale;
-                SetAlpha(1f);
                 onComplete?.Invoke();
                 gameObject.SetActive(false);
             });
@@ -355,15 +427,19 @@ public class ObjectFX : MonoBehaviour
     /// </summary>
     public void HideByExplode(Action onComplete = null)
     {
+        KillTweens();
+
         transform.DOScale(originalScale * 1.5f, duration * 0.3f)
             .SetEase(Ease.OutQuad)
+            .SetTarget(this)
             .OnComplete(() =>
             {
-                transform.DOScale(Vector3.zero, duration * 0.7f).SetEase(Ease.InQuad);
+                transform.DOScale(Vector3.zero, duration * 0.7f).SetEase(Ease.InQuad).SetTarget(this);
             });
 
         transform.DORotate(new Vector3(0, 360, 0), duration, RotateMode.FastBeyond360)
             .SetEase(Ease.InQuad)
+            .SetTarget(this)
             .OnComplete(() =>
             {
                 transform.localScale = originalScale;
@@ -378,7 +454,9 @@ public class ObjectFX : MonoBehaviour
     /// </summary>
     public void HideByShrink(Action onComplete = null)
     {
-        Sequence sequence = DOTween.Sequence();
+        KillTweens();
+
+        Sequence sequence = DOTween.Sequence().SetTarget(this);
         sequence.Append(transform.DOScale(originalScale * 1.2f, duration * 0.3f).SetEase(Ease.OutQuad));
         sequence.Append(transform.DOScale(Vector3.zero, duration * 0.7f).SetEase(Ease.InBack));
         sequence.OnComplete(() =>
@@ -394,19 +472,11 @@ public class ObjectFX : MonoBehaviour
     #region 辅助方法
 
     /// <summary>
-    /// 设置物体透明度
+    /// 杀掉本组件创建的所有动画(不影响其他脚本在同一 Transform 上的动画)
     /// </summary>
-    private void SetAlpha(float alpha)
+    private void KillTweens()
     {
-        foreach (var renderer in renderers)
-        {
-            if (renderer.material.HasProperty("_Color"))
-            {
-                Color color = renderer.material.color;
-                color.a = alpha;
-                renderer.material.color = color;
-            }
-        }
+        DOTween.Kill(this);
     }
 
     /// <summary>
@@ -414,18 +484,14 @@ public class ObjectFX : MonoBehaviour
     /// </summary>
     public void ResetObject()
     {
-        DOTween.Kill(transform);
+        KillTweens();
         transform.localScale = originalScale;
         transform.localPosition = originalPosition;
         transform.localRotation = Quaternion.identity;
 
-        // 恢复原始颜色
-        foreach (var kvp in originalColors)
+        if (canvasGroup != null)
         {
-            if (kvp.Key != null && kvp.Key.material.HasProperty("_Color"))
-            {
-                kvp.Key.material.color = kvp.Value;
-            }
+            canvasGroup.alpha = 1f;
         }
     }
 
@@ -434,13 +500,13 @@ public class ObjectFX : MonoBehaviour
     /// </summary>
     public void StopAllAnimations()
     {
-        DOTween.Kill(transform);
+        KillTweens();
     }
 
     #endregion
 
     private void OnDestroy()
     {
-        DOTween.Kill(transform);
+        KillTweens();
     }
 }

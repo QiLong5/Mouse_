@@ -9,6 +9,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 玩家控制脚本
 /// </summary>
+[DefaultExecutionOrder(100)] // 在摇杆 Update 更新输入后处理移动。
 public class Player : MonoSingleton<Player>
 {
     [Header("Move")]
@@ -18,6 +19,7 @@ public class Player : MonoSingleton<Player>
     //旋转平滑系数
     public float mTurnSmoothTime => GameDataEditor.instance.playerTurnSmoothTime;
     float mTurnSmoothVelocity;
+    private Quaternion targetRotation;
     private bool _isMove;
      public bool IsMove
     {
@@ -109,6 +111,19 @@ public class Player : MonoSingleton<Player>
     }
    
     public bool IsAtHome;
+
+    private void OnEnable()
+    {
+        mRigidbody = GetComponent<Rigidbody>();
+        mRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+        OnStop();
+    }
+
+    private void OnDisable()
+    {
+        OnStop();
+    }
+
     void Start()
     {
         mHp = GameDataEditor.instance.playerMaxHp;
@@ -130,10 +145,12 @@ public class Player : MonoSingleton<Player>
     }
 
 
-    void LateUpdate()
+    void Update()
     {
-        if (isDie || !CameraManager.instance.IsCanMove)
+        if (isDie || LunaManager.instance.isGameOver
+            || !CameraManager.instance.IsCanMove || Time.deltaTime <= 0f)
         {
+            OnStop();
             return;
         }
         if (isDroppingOffItem)
@@ -148,9 +165,19 @@ public class Player : MonoSingleton<Player>
         }
         if (attackInterval>0)
         {
-            attackInterval-=Time.fixedDeltaTime;
+            attackInterval-=Time.deltaTime;
         }
         Move();
+    }
+
+    private void FixedUpdate()
+    {
+        if (IsMove && !isDie && !LunaManager.instance.isGameOver
+            && CameraManager.instance.IsCanMove
+            && Quaternion.Angle(mRigidbody.rotation, targetRotation) > 0.01f)
+        {
+            mRigidbody.MoveRotation(targetRotation);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -296,8 +323,9 @@ public class Player : MonoSingleton<Player>
             OnStop();
             return;
         }
-        if (TouchArea.instance.mJoystickHandle == null)
+        if (TouchArea.instance == null || TouchArea.instance.mJoystickHandle == null)
         {
+            OnStop();
             return;
         }
         if (TouchArea.instance.mJoystickHandle.dragging && Input.GetMouseButton(0))
@@ -305,14 +333,18 @@ public class Player : MonoSingleton<Player>
             IsMove = true;
             float targetAngle = Mathf.Atan2(TouchArea.instance.mJoystickHandle.Horizontal, TouchArea.instance.mJoystickHandle.Vertical) * Mathf.Rad2Deg;
             float worldTargetAngle = targetAngle + Camera.main.transform.eulerAngles.y - mAngleDis;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, worldTargetAngle , ref mTurnSmoothVelocity, mTurnSmoothTime);
-            mRigidbody.velocity = new Vector3((transform.forward * speed).x, mRigidbody.velocity.y, (transform.forward * speed).z);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            // 使用缓存朝向，避免把插值后延迟一拍的显示旋转反馈到转向计算中。
+            float angle = Mathf.SmoothDampAngle(targetRotation.eulerAngles.y, worldTargetAngle, ref mTurnSmoothVelocity, mTurnSmoothTime);
+            targetRotation = Quaternion.Euler(0f, angle, 0f);
+            Vector3 moveVelocity = targetRotation * Vector3.forward * speed;
+            mRigidbody.velocity = new Vector3(moveVelocity.x, mRigidbody.velocity.y, moveVelocity.z);
         }
         else
         {
             IsMove = false;
             mRigidbody.velocity = new Vector3(0, mRigidbody.velocity.y, 0);
+            mTurnSmoothVelocity = 0f;
+            targetRotation = mRigidbody.rotation;
         }
         if (Input.GetMouseButtonUp(0))
         {
@@ -350,7 +382,12 @@ public class Player : MonoSingleton<Player>
     public void OnStop()
     {
         IsMove = false;
-        mRigidbody.velocity =new Vector3(0, 0,0);
+        mTurnSmoothVelocity = 0f;
+        if (mRigidbody != null)
+        {
+            mRigidbody.velocity = Vector3.zero;
+            targetRotation = mRigidbody.rotation;
+        }
     }
 
 

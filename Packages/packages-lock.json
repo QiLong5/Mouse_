@@ -123,7 +123,7 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.playworks.upp": {
-      "version": "file:C:/U3D/plugin/playworks/7.1.0/scripts",
+      "version": "file:../../../../../../U3D/plugin/playworks/7.1.0/scripts",
       "depth": 0,
       "source": "local",
       "dependencies": {}
